@@ -1,4 +1,3 @@
-// src/components/NavBar.jsx
 import React from "react";
 import { Flex, Box, Link } from "@chakra-ui/react";
 
@@ -9,10 +8,10 @@ export default function NavBar() {
       w="100%"
       bg="teal.600"
       color="white"
+      boxShadow="sm"
       position="sticky"
       top="0"
       zIndex="1000"
-      boxShadow="sm"
       align="center"
       justify="space-between"
       h="16"

@@ -1,4 +1,3 @@
-// src/components/Hero.jsx
 import React from "react";
 import {
   Flex, Box, Heading, Text, Button, Avatar, Stack, Link
@@ -9,16 +8,18 @@ export default function Hero() {
     <Flex
       as="section"
       w="100%"
+      minH="100vh"
+      bg="gray.900"
+      color="white"
       direction={{ base: "column-reverse", md: "row" }}
       align="center"
       py={16}
-      bg="gray.900"
-      color="white"
     >
       {/* Text side */}
       <Box flex="1" textAlign={{ base: "center", md: "left" }} mt={{ base: 8, md: 0 }}>
         <Heading as="h1" size="2xl" mb={4}>
-          Hi There,<br />
+          Hi There,
+          <br />
           I’m <Box as="span" color="teal.300">Daniel</Box> 👋
         </Heading>
         <Text fontSize="lg" mb={6}>
@@ -37,6 +38,7 @@ export default function Hero() {
           <Link href="#" isExternal>Twitter</Link>
         </Stack>
       </Box>
+
       {/* Avatar side */}
       <Box flex="1" display="flex" justifyContent="center">
         <Avatar
