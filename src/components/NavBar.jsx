@@ -24,6 +24,9 @@ export default function NavBar() {
         <Link href="#about" px={4} py={{ base: 2, md: 3 }} rounded="md" _hover={{bg: "teal.700", color: "white", transform: "translateY(-2px)", boxShadow: "lg"}}>
           About
         </Link>
+        <Link href="#skills" px={4} py={{ base: 2, md: 3 }} rounded="md" _hover={{bg: "teal.700", color: "white", transform: "translateY(-2px)", boxShadow: "lg"}}>
+          Skills
+        </Link>
         <Link href="#projects" px={4} py={{ base: 2, md: 3 }} rounded="md" _hover={{bg: "teal.700", color: "white", transform: "translateY(-2px)", boxShadow: "lg"}}>
           Projects
         </Link>

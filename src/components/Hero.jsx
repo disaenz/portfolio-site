@@ -25,7 +25,7 @@ export default function Hero() {
           I’m <Box as="span" color="teal.300">Daniel</Box> 👋
         </Heading>
         <Text fontSize="lg" mb={6}>
-          I build cloud-native apps & beautiful front-ends. Welcome to my corner of the web!
+          Glad you’re here—my specialty is dependable apps backed by secure, hands-off delivery.
         </Text>
         <Button
           colorScheme="teal"
@@ -35,9 +35,8 @@ export default function Hero() {
           See my work
         </Button>
         <Stack direction="row" spacing={4} justify={{ base: "center", md: "flex-start" }} mt={6}>
-          <Link href="#" isExternal>GitHub</Link>
-          <Link href="#" isExternal>LinkedIn</Link>
-          <Link href="#" isExternal>Twitter</Link>
+          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">GitHub</Link>
+          <Link href="https://www.linkedin.com/in/daniel-saenz-devops" isExternal fontWeight="bold">LinkedIn</Link>
         </Stack>
       </Box>
 
