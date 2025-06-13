@@ -34,7 +34,7 @@ body {
 main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px 0 16px;
+  padding: 0 2rem 2rem;
 }
 
 /* 4) Your existing element styles */
@@ -73,4 +73,8 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }

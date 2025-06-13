@@ -7,6 +7,7 @@ export default function Hero() {
   return (
     <Flex
       as="section"
+      id="hero"
       w="100%"
       minH="100vh"
       bg="gray.900"
@@ -14,6 +15,7 @@ export default function Hero() {
       direction={{ base: "column-reverse", md: "row" }}
       align="center"
       py={16}
+      px={{ base: 4, md: 20 }}
     >
       {/* Text side */}
       <Box flex="1" textAlign={{ base: "center", md: "left" }} mt={{ base: 8, md: 0 }}>
@@ -42,10 +44,12 @@ export default function Hero() {
       {/* Avatar side */}
       <Box flex="1" display="flex" justifyContent="center">
         <Avatar
+          boxSize={{ base: "120px", md: "300px" }}
           size="2xl"
           src="https://ui-avatars.com/api/?name=Daniel+Saenz&background=2D3748&color=ffffff"
           borderWidth="4px"
           borderColor="teal.300"
+          ml={{ base: 0, md: 16 }} 
         />
       </Box>
     </Flex>

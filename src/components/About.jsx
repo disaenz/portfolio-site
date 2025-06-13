@@ -3,7 +3,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 export default function About() {
   return (
-    <Box as="section" w="100%" bg="white" py={16}>
+    <Box id="about" as="section" w="100%" bg="white" py={16}>
       <Heading as="h2" size="xl" textAlign="center" mb={6}>
         About Me
       </Heading>

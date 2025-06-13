@@ -20,7 +20,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <Box as="section" w="100%" bg="gray.50" py={16}>
+    <Box id="projects" as="section" w="100%" bg="gray.50" py={16}>
       <Heading as="h2" size="xl" textAlign="center" mb={8}>
         Projects
       </Heading>
