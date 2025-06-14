@@ -30,7 +30,14 @@ body {
   background-color: #242424;
 }
 
-/* Center all your page content, but no top padding */
+/* 2) Ensure full-width content on mobile */
+@media (max-width: 48em) {
+  main {
+    padding: 0; /* remove side padding for true edge-to-edge */
+  }
+}
+
+/* 3) Center all your page content, but no top padding */
 main {
   max-width: 1200px;
   margin: 0 auto;
