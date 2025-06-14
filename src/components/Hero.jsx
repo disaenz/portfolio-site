@@ -1,6 +1,13 @@
 import React from "react";
 import {
-  Flex, Box, Heading, Text, Button, Avatar, Stack, Link
+  Flex,
+  Box,
+  Heading,
+  Text,
+  Button,
+  Avatar,
+  Stack,
+  Link,
 } from "@chakra-ui/react";
 
 export default function Hero() {
@@ -38,6 +45,17 @@ export default function Hero() {
           <Link href="https://github.com/disaenz" isExternal fontWeight="bold">GitHub</Link>
           <Link href="https://www.linkedin.com/in/daniel-saenz-devops" isExternal fontWeight="bold">LinkedIn</Link>
         </Stack>
+
+        {/* Deployment disclaimer positioned just below the links */}
+        <Text
+          fontSize="xs"  
+          color="gray.400"
+          textAlign={{ base: "center", md: "left" }}
+          mt={4}
+          mb={0}
+        >
+          Built with React & Chakra UI • CI/CD via GitHub Actions • Deployed on AWS
+        </Text>
       </Box>
 
       {/* Avatar side */}
@@ -48,7 +66,7 @@ export default function Hero() {
           src="https://ui-avatars.com/api/?name=Daniel+Saenz&background=2D3748&color=ffffff"
           borderWidth="4px"
           borderColor="teal.300"
-          ml={{ base: 0, md: 16 }} 
+          ml={{ base: 0, md: 16 }}
         />
       </Box>
     </Flex>

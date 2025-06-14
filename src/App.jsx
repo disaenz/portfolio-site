@@ -5,6 +5,7 @@ import Hero     from "./components/Hero.jsx";
 import About    from "./components/About.jsx";
 import Skills   from "./components/Skills.jsx";
 import Projects from "./components/Projects.jsx";
+import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
@@ -14,14 +15,14 @@ export default function App() {
       maxW="1200px"
       mx="auto"
       px={{ base: 0, md: "2rem" }}  /* edge-to-edge on mobile, desktop padding */
-      pt={0}
-      pb={8}
+      py={0}
     >
         <NavBar />
         <Hero />
         <About />
         <Skills />
         <Projects />
+        <Footer />
       </Box>
     </>
   );

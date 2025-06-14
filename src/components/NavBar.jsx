@@ -30,13 +30,14 @@ export default function NavBar() {
         justify="space-between"
         h="16"
       >
-        {/* logo/name */}
+        {/* logo/name with Leckerli One font, increased size */}
         <Link
           href="#hero"
-          fontSize="2xl"
+          fontFamily="'Leckerli One', cursive"
+          fontSize={{ base: "3xl", md: "4xl" }}
           fontWeight="bold"
           _hover={{ transform: "scale(1.15)", color: "white" }}
-          transition="transform 0.3s"
+          transition="transform 0.3s, color 0.3s"
         >
           Daniel Saenz
         </Link>
@@ -107,7 +108,9 @@ export default function NavBar() {
                 w="100%"
                 p={4}
                 textAlign="center"
+                transition="background 0.2s, transform 0.1s"
                 _hover={{ bg: "teal.700", color: "white" }}
+                _active={{ bg: "teal.800", transform: "scale(0.98)", color: "white" }}
                 onClick={onToggle}
               >
                 {item.label}
