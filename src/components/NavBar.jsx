@@ -4,7 +4,6 @@ import {
   Link,
   IconButton,
   Collapse,
-  Box,
   VStack,
   useDisclosure,
   HStack,
@@ -15,27 +14,28 @@ export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <>
       <Flex
-        as="nav"
-        w="100%"
-        bg="teal.600"
-        color="white"
-        boxShadow="sm"
+        as="header"
+        maxW="1200px"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
         position={{ base: "relative", md: "sticky" }}
         top={{ base: "auto", md: 0 }}
         zIndex="1000"
+        bg="teal.600"
+        color="white"
+        boxShadow="sm"
         align="center"
         justify="space-between"
         h="16"
-        px={{ base: 4, md: 8 }}
       >
         {/* logo/name */}
         <Link
           href="#hero"
           fontSize="2xl"
           fontWeight="bold"
-          _hover={{ transform: "scale(1.15)" }}
+          _hover={{ transform: "scale(1.15)", color: "white" }}
           transition="transform 0.3s"
         >
           Daniel Saenz
@@ -48,6 +48,7 @@ export default function NavBar() {
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           onClick={onToggle}
           variant="ghost"
+          color="white"
         />
 
         {/* desktop links */}
@@ -56,13 +57,31 @@ export default function NavBar() {
           spacing={4}
           display={{ base: "none", md: "flex" }}
         >
-          <Link href="#about" px={4} py={3} rounded="md" _hover={{ bg: "teal.700", transform: "translateY(-2px)" }}>
+          <Link
+            href="#about"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
             About
           </Link>
-          <Link href="#skills" px={4} py={3} rounded="md" _hover={{ bg: "teal.700", transform: "translateY(-2px)" }}>
+          <Link
+            href="#skills"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
             Skills
           </Link>
-          <Link href="#projects" px={4} py={3} rounded="md" _hover={{ bg: "teal.700", transform: "translateY(-2px)" }}>
+          <Link
+            href="#projects"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
             Projects
           </Link>
         </HStack>
@@ -70,9 +89,11 @@ export default function NavBar() {
 
       {/* mobile collapse menu */}
       <Collapse in={isOpen} animateOpacity>
-        <Box
+        <Flex
+          as="nav"
+          direction="column"
           bg="teal.600"
-          display={{ base: "block", md: "none" }}
+          display={{ base: "flex", md: "none" }}
         >
           <VStack spacing={0}>
             {[
@@ -86,15 +107,15 @@ export default function NavBar() {
                 w="100%"
                 p={4}
                 textAlign="center"
-                _hover={{ bg: "teal.700" }}
+                _hover={{ bg: "teal.700", color: "white" }}
                 onClick={onToggle}
               >
                 {item.label}
               </Link>
             ))}
           </VStack>
-        </Box>
+        </Flex>
       </Collapse>
-    </Box>
+    </>
   );
 }
