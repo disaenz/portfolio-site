@@ -1,4 +1,3 @@
-// src/components/Skills.jsx
 import React from "react";
 import {
   Box,
@@ -12,24 +11,107 @@ import {
 export default function Skills() {
   const skillCategories = [
     {
-      title: "Backend Languages",
-      skills: ["Node.js", "Python", "Java", "Golang"],
+      title: "Languages & Frameworks",
+      skills: [
+        "C#",
+        "Java",
+        "Python",
+        "JavaScript",
+        "React",
+        "AngularJS",
+        "Node.js",
+        "ASP.NET",
+        ".NET Core",
+        "PHP",
+        "HTML",
+        "CSS",
+        "Chakra UI",
+      ],
     },
     {
       title: "DevSecOps & CI/CD",
-      skills: ["GitHub Actions", "Jenkins", "ArgoCD", "GitOps"],
+      skills: [
+        "GitHub Actions",
+        "GitLab CI",
+        "Jenkins",
+        "AWS CodePipeline",
+        "ArgoCD",
+        "Fortify",
+        "Trivy",
+        "SonarQube",
+        "GitOps",
+      ],
     },
     {
       title: "Infrastructure as Code",
-      skills: ["Terraform", "CloudFormation", "Pulumi"],
+      skills: ["Terraform", "CloudFormation"],
     },
     {
       title: "Containers & Orchestration",
-      skills: ["Docker", "Kubernetes", "Helm"],
+      skills: [
+        "Docker",
+        "Docker Compose",
+        "Kubernetes",
+        "Minikube",
+        "Helm",
+        "OpenShift",
+        "Podman",
+        "EKS",
+        "AKS",
+        "GKE",
+        "ECS",
+        "Fargate",
+      ],
     },
     {
       title: "Cloud Platforms",
-      skills: ["AWS", "Azure", "Google Cloud", "Oracle Cloud"],
+      skills: [
+        "AWS",
+        "Azure",
+        "Google Cloud",
+        "Oracle Cloud",
+        "DigitalOcean",
+      ],
+    },
+    {
+      title: "AWS Services",
+      skills: ["EC2", "S3", "IAM", "Route 53"],
+    },
+    {
+      title: "Relational Databases",
+      skills: ["PostgreSQL", "MySQL", "SQL Server", "Amazon RDS"],
+    },
+    {
+      title: "NoSQL Databases",
+      skills: ["MongoDB", "DynamoDB"],
+    },
+    {
+      title: "Web & App Servers",
+      skills: ["Apache", "Nginx", "IIS", "Gunicorn"],
+    },
+    {
+      title: "Secrets & Security",
+      skills: ["HashiCorp Vault", "AWS KMS", "AWS WAF"],
+    },
+    {
+      title: "Serverless & API",
+      skills: ["AWS Lambda", "API Gateway"],
+    },
+    {
+      title: "Container Registries",
+      skills: ["Amazon ECR", "Docker Hub", "Artifactory", "Azure Container Registry"],
+    },
+    {
+      title: "Scripting & Tools",
+      skills: [
+        "Bash",
+        "Batch",
+        "Git",
+        "VS Code",
+        "Visual Studio",
+        "PyCharm",
+        "Eclipse",
+      ],
     },
   ];
 
@@ -39,7 +121,7 @@ export default function Skills() {
       id="skills"
       w="100%"
       bg="gray.900"
-      color="white"          
+      color="white"
       py={16}
       px={{ base: 4, md: 8 }}
     >
