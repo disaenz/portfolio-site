@@ -75,7 +75,7 @@ export default function Skills() {
     },
     {
       title: "AWS Services",
-      skills: ["EC2", "S3", "IAM", "Route 53"],
+      skills: ["EC2", "S3", "IAM", "Route 53", "Amazon Kinesis"],
     },
     {
       title: "Relational Databases",
@@ -100,6 +100,16 @@ export default function Skills() {
     {
       title: "Container Registries",
       skills: ["Amazon ECR", "Docker Hub", "Artifactory", "Azure Container Registry"],
+    },
+    {
+      title: "AI & Machine Learning Services",
+      skills: [
+        "Azure Cognitive Services",
+        "Azure Copilot",
+        "Amazon Polly",
+        "Amazon Transcribe",
+        "Amazon Comprehend",
+      ],
     },
     {
       title: "Scripting & Tools",
