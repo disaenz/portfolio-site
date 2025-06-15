@@ -31,7 +31,7 @@ export default function About() {
       </Text>
       <Box mt={8} textAlign="center">
         <Link
-          href="https://www.dropbox.com/s/<your-placeholder>/resume.pdf?dl=0"
+          href="https://www.dropbox.com/scl/fi/vr6msczyp321femehlrcg/Daniel-Saenz-Resume.pdf?rlkey=y2zh8uhylud8zgp6dt5jiund6&st=ai7knzyg&dl=0"
           isExternal
           color="teal.500"
           fontWeight="bold"
