@@ -3,12 +3,14 @@ import {
   Box, Heading, SimpleGrid, Image, Text, Link
 } from "@chakra-ui/react";
 
+
+import iacImage from "../assets/infra.png";
 const projects = [
   {
-    title: "Terraform S3 Demo",
+    title: "Terraform Demo",
     description: "IaC pipeline with GitHub Actions",
     link: "#",
-    img: "https://via.placeholder.com/400x300"
+    img: iacImage
   },
   {
     title: "React Portfolio",
