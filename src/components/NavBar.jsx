@@ -30,7 +30,7 @@ export default function NavBar() {
         justify="space-between"
         h="16"
       >
-        {/* logo/name with Leckerli One font, increased size */}
+        {/* logo/name with Leckerli One font */}
         <Link
           href="#hero"
           fontFamily="'Leckerli One', cursive"
@@ -77,6 +77,15 @@ export default function NavBar() {
             Experience
           </Link>
           <Link
+            href="#education"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
+            Education
+          </Link>
+          <Link
             href="#skills"
             px={4}
             py={3}
@@ -109,6 +118,7 @@ export default function NavBar() {
             {[
               { label: "About", href: "#about" },
               { label: "Experience", href: "#experience" },
+              { label: "Education", href: "#education" },
               { label: "Skills", href: "#skills" },
               { label: "Projects", href: "#projects" },
             ].map((item) => (
