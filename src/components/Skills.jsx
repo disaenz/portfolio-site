@@ -99,7 +99,12 @@ export default function Skills() {
     },
     {
       title: "Container Registries",
-      skills: ["Amazon ECR", "Docker Hub", "Artifactory", "Azure Container Registry"],
+      skills: [
+        "Amazon ECR",
+        "Docker Hub",
+        "Artifactory",
+        "Azure Container Registry",
+      ],
     },
     {
       title: "AI & Machine Learning Services",
@@ -122,6 +127,10 @@ export default function Skills() {
         "PyCharm",
         "Eclipse",
       ],
+    },
+    {
+      title: "Spoken Languages",
+      skills: ["English", "Spanish"],
     },
   ];
 
