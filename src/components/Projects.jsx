@@ -21,7 +21,7 @@ const projects = [
 export default function Projects() {
   return (
     <Box id="projects" as="section" w="100%" bg="gray.50" py={16}>
-      <Heading as="h2" size="xl" textAlign="center" mb={8}>
+      <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={6}>
         Projects
       </Heading>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} px={{ base: 4, md: 8 }}>

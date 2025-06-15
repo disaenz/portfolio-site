@@ -68,6 +68,15 @@ export default function NavBar() {
             About
           </Link>
           <Link
+            href="#experience"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
+            Experience
+          </Link>
+          <Link
             href="#skills"
             px={4}
             py={3}
@@ -99,6 +108,7 @@ export default function NavBar() {
           <VStack spacing={0}>
             {[
               { label: "About", href: "#about" },
+              { label: "Experience", href: "#experience" },
               { label: "Skills", href: "#skills" },
               { label: "Projects", href: "#projects" },
             ].map((item) => (
