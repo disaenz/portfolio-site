@@ -39,6 +39,15 @@ export default function About() {
           Download My Resume
         </Link>
       </Box>
+
+      <Box mt={4} textAlign="center">
+        <Text fontSize="sm" color="gray.500">
+          <b>Email:</b>{" "}
+          <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>{" "}
+          | <b>Phone:</b>{" "}
+          <Link href="tel:+19158925117">(915) 892-5117</Link>
+        </Text>
+      </Box>
     </Box>
   );
 }
