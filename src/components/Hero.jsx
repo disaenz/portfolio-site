@@ -8,6 +8,8 @@ import {
   Avatar,
   Stack,
   Link,
+  Show,
+  Hide,
 } from "@chakra-ui/react";
 
 export default function Hero() {
@@ -22,7 +24,7 @@ export default function Hero() {
       direction={{ base: "column-reverse", md: "row" }}
       align="center"
       py={16}
-      px={{ base: 0, md: 20 }}
+      px={{ base: 4, md: 20 }}
     >
       {/* Text side */}
       <Box flex="1" textAlign={{ base: "center", md: "left" }} mt={{ base: 8, md: 0 }}>
@@ -31,9 +33,11 @@ export default function Hero() {
           <br />
           I’m <Box as="span" color="teal.300">Daniel</Box> 👋
         </Heading>
-        <Text fontSize="lg" mb={6}>
+
+        <Text fontSize="lg" mb={6} px={{ base: 2, md: 0 }}>
           Glad you’re here—my specialty is dependable apps backed by secure, hands-off delivery.
         </Text>
+
         <Button
           colorScheme="teal"
           size="lg"
@@ -41,24 +45,51 @@ export default function Hero() {
         >
           See my work
         </Button>
-        <Stack direction="row" spacing={4} justify={{ base: "center", md: "flex-start" }} mt={6}>
-          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">GitHub</Link>
-          <Link href="https://www.linkedin.com/in/daniel-saenz-devops" isExternal fontWeight="bold">LinkedIn</Link>
+
+        <Stack
+          direction="row"
+          spacing={4}
+          justify={{ base: "center", md: "flex-start" }}
+          mt={6}
+        >
+          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">
+            GitHub
+          </Link>
+          <Link href="https://www.linkedin.com/in/daniel-saenz-devops" isExternal fontWeight="bold">
+            LinkedIn
+          </Link>
         </Stack>
 
-        {/* Deployment disclaimer positioned just below the links */}
-        <Text
-          fontSize="xs"  
-          color="gray.400"
-          textAlign={{ base: "center", md: "left" }}
-          mt={4}
-          mb={0}
-        >
-          Built with React & Chakra UI • CI/CD via GitHub Actions • Deployed on AWS
-        </Text>
+        
+        <Hide below="md">
+          <Text
+            fontSize="xs"
+            color="gray.400"
+            textAlign="left"
+            mt={4}
+          >
+            Built with React & Chakra UI • CI/CD via GitHub Actions • Deployed on AWS
+          </Text>
+        </Hide>
+
+       
+        <Show below="md">
+          <Stack
+            as="footer"
+            spacing={1}
+            fontSize="xs"
+            color="gray.400"
+            textAlign="center"
+            mt={4}
+          >
+            <Box>Built with React &amp; Chakra UI</Box>
+            <Box>CI/CD via GitHub Actions</Box>
+            <Box>Deployed on AWS</Box>
+          </Stack>
+        </Show>
       </Box>
 
-      {/* Avatar side */}
+      
       <Box flex="1" display="flex" justifyContent="center">
         <Avatar
           boxSize={{ base: "200px", md: "300px" }}
