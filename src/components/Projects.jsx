@@ -23,7 +23,7 @@ const projects = [
   {
     title: "React Portfolio",
     description: "This site, built with React + Chakra UI",
-    link: "#",
+    link: "https://github.com/disaenz/portfolio-site",
     img: chakraImage,
   },
 ];

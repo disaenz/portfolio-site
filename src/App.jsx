@@ -11,7 +11,7 @@ import Education from "./components/Education.jsx";
 
 export default function App() {
   return (
-    <>
+    <Box bg="#1b212d" color="white" minH="100vh">
      <Box
       as="main"
       maxW="1200px"
@@ -28,6 +28,6 @@ export default function App() {
         <Projects />
         <Footer />
       </Box>
-    </>
+    </Box>
   );
 }

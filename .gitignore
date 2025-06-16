@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+deploy.sh
+clean.sh
+public-read-policy.json
