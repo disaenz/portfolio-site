@@ -37,5 +37,5 @@ jobs:
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
       # 5. Success message
-      - name: Success 🎉
+      - name: Success
         run: echo "Website now up at http://${{ secrets.BUCKET_NAME }}.s3-website.${{ secrets.AWS_REGION }}.amazonaws.com"
