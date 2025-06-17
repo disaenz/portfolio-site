@@ -16,7 +16,7 @@ export default function App() {
       as="main"
       maxW="1200px"
       mx="auto"
-      px={{ base: 0, md: "2rem" }}
+      px={{ base: 0, lg: "2rem" }}
       py={0}
     >
         <NavBar />

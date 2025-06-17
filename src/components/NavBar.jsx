@@ -30,11 +30,10 @@ export default function NavBar() {
         justify="space-between"
         h="16"
       >
-        {/* logo/name with Leckerli One font */}
         <Link
           href="#hero"
           fontFamily="'Leckerli One', cursive"
-          fontSize={{ base: "3xl", md: "4xl" }}
+          fontSize={{ base: "3xl", md: "3xl" ,lg: "4xl" }}
           fontWeight="bold"
           _hover={{ transform: "scale(1.15)", color: "white" }}
           transition="transform 0.3s, color 0.3s"
