@@ -55,4 +55,7 @@ jobs:
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
       - name: Success 🎉
-        run: echo "Website now up at http://${{ secrets.BUCKET_NAME }}.s3-website.${{ secrets.AWS_REGION }}.amazonaws.com"
+        run: |
+          echo "✅ Deployment complete!"
+          echo "  Visit your S3 website endpoint in the AWS console or construct it as:"
+          echo "    http://<your-bucket-name>.s3-website.<your-region>.amazonaws.com"
