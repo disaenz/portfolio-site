@@ -1,33 +1,75 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from "@eslint/js";
+import globals from "globals";
+import pluginReact from "eslint-plugin-react";
+import json from "@eslint/json";
+import markdown from "@eslint/markdown";
+import cssPlugin from "@eslint/css";
+import { defineConfig } from "eslint/config";
 
-export default [
-  { ignores: ['dist'] },
+export default defineConfig([
+  /*
+   * 0) Ignore non-source files and generated output
+   */
   {
-    files: ['**/*.{js,jsx}'],
+    ignores: [
+      "README.md",
+      "dist/**",
+      "node_modules/**"
+    ],
+  },
+
+  /*
+   * 1) JavaScript & JSX files under src/
+   */
+  {
+    files: ["src/**/*.{js,jsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 2022,
+      sourceType: "module",
       globals: globals.browser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
+        ecmaFeatures: { jsx: true }
+      }
     },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
-    rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-    },
+    plugins: { js, react: pluginReact },
+    extends: [
+      "js/recommended",
+      pluginReact.configs.flat.recommended
+    ],
+    settings: { react: { version: "detect" } }
   },
-]
+
+  /*
+   * 2) JSONC files
+   */
+  {
+    files: ["**/*.jsonc"],
+    plugins: { json },
+    language: "json/jsonc",
+    extends: ["json/recommended"]
+  },
+
+  /*
+   * 3) Markdown files (GitHub Flavored)
+   */
+  {
+    files: ["**/*.md"],
+    plugins: { markdown },
+    language: "markdown/gfm",
+    extends: ["markdown/recommended"]
+  },
+
+  /*
+   * 4) CSS files
+   * Disable the `css/use-baseline` rule which conflicts with our global outline usage
+   */
+  {
+    files: ["**/*.css"],
+    plugins: { css: cssPlugin },
+    language: "css/css",
+    extends: ["css/recommended"],
+    rules: {
+      "css/use-baseline": "off"
+    }
+  }
+]);

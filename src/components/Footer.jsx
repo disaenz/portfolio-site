@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text, Link } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
