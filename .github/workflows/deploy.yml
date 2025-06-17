@@ -17,8 +17,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id:     ${{ secrets.PORTFOLIO_DEPLOYER_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PORTFOLIO_DEPLOYER_SECRET_ACCESS_KEY }}
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region:            ${{ secrets.AWS_REGION }}
 
       # 3. Install & build
