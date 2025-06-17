@@ -26,3 +26,4 @@ dist-ssr
 deploy.sh
 clean.sh
 public-read-policy.json
+.env
