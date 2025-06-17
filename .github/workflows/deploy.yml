@@ -1,5 +1,8 @@
 name: 🚀 CI/CD Pipeline for S3 Portfolio
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ dev ]
