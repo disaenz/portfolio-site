@@ -1,12 +1,9 @@
-name: 🚀 Deploy Portfolio to S3
+name: Deploy Portfolio to S3
 
 on:
   push:
     branches: [ dev ]
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 jobs:
   deploy:
