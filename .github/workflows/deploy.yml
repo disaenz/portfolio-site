@@ -1,4 +1,4 @@
-name: 🚀 Deploy Portfolio to S3
+name: 🚀 CI/CD Pipeline for S3 Portfolio
 
 on:
   push:
@@ -10,34 +10,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  ci:
+    name: 🛠 CI (Lint & Build)
     runs-on: ubuntu-latest
-    outputs:
-      artifact-name: build-output
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build app
+      - name: 🛡️ Static code analysis (ESLint)
+        run: npm run lint
+
+      - name: 🔨 Build site
         run: npm run build
 
-      - name: Upload build artifact  
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
+          name: dist
           path: dist/
 
-  deploy:
-    needs: build
+  cd:
+    name: 🚀 CD (Deploy to S3)
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-output
+          name: dist
           path: dist/
 
       - name: Configure AWS Credentials
@@ -54,8 +57,8 @@ jobs:
             --region ${{ secrets.AWS_REGION }} \
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
-      - name: Success 🎉
+      - name: Confirm success
         run: |
           echo "✅ Deployment complete!"
-          echo "  Visit your S3 website endpoint in the AWS console or construct it as:"
-          echo "    http://<your-bucket-name>.s3-website.<your-region>.amazonaws.com"
+          echo "  Your site is live at:"
+          echo "    http://${{ secrets.BUCKET_NAME }}.s3-website.${{ secrets.AWS_REGION }}.amazonaws.com"
