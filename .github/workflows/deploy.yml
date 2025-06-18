@@ -5,7 +5,9 @@ permissions:
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 concurrency:
@@ -39,6 +41,7 @@ jobs:
     name: 🚀 CD (Deploy to S3)
     needs: ci
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -53,15 +56,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region:            ${{ secrets.AWS_REGION }}
 
-      - name: Deploy to S3
+      - name: Sync to S3
         run: |
           aws s3 sync dist/ s3://${{ secrets.BUCKET_NAME }}/ \
             --delete \
             --region ${{ secrets.AWS_REGION }} \
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
-      - name: Confirm success
+      - name: Success 🎉
         run: |
           echo "✅ Deployment complete!"
-          echo "  Your site is live at:"
-          echo "    http://${{ secrets.BUCKET_NAME }}.s3-website.${{ secrets.AWS_REGION }}.amazonaws.com"
+          echo "  Visit your S3 website endpoint in the AWS console or construct it as:"
+          echo "    http://<your-bucket-name>.s3-website.<your-region>.amazonaws.com"
