@@ -1,4 +1,4 @@
-name: 🚀 CI/CD Pipeline for S3 Portfolio
+name: 🚀 CI/CD Pipeline Portfolio
 
 permissions:
   contents: read
