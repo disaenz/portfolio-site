@@ -24,10 +24,14 @@ export default function About() {
         migrate on-premises infrastructure to AWS, Azure, Google Cloud, and
         Oracle Cloud, ensuring minimal downtime and zero data loss.
       </Text>
+      <Text fontSize="lg" color="gray.700" maxW="3xl" mx="auto" mb={4}>
+        I quickly acquire proficiency in new languages and frameworks—enabling 
+        swift adaptation to evolving requirements and emerging technologies.
+      </Text>
       <Text fontSize="lg" color="gray.700" maxW="3xl" mx="auto">
-        When I’m not coding, you’ll find me traveling or hanging out with my
-        family, making memories in places like Disneyland or discovering new
-        adventures together.
+        Outside of work, I love traveling or hanging out with my
+        family, making memories in places like Disneyland and other places 
+        around the world.
       </Text>
       <Box mt={8} textAlign="center">
         <Link

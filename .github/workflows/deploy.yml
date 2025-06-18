@@ -1,41 +1,70 @@
-name: Deploy Portfolio to S3
+name: 🚀 CI/CD Pipeline for Portfolio
+
+permissions:
+  contents: read
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
+concurrency:
+  group: portfolio-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  ci:
+    name: 🛠 CI (Lint & Build)
     runs-on: ubuntu-latest
     steps:
-      # 1. Pull down your code
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Configure AWS credentials & region
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id:     ${{ secrets.PORTFOLIO_DEPLOYER_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PORTFOLIO_DEPLOYER_SECRET_ACCESS_KEY }}
-          aws-region:            ${{ secrets.AWS_REGION }}
-
-      # 3. Install & build
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site
+      - name: 🛡️ Static code analysis (ESLint)
+        run: npm run lint
+
+      - name: 🔨 Build site
         run: npm run build
 
-      # 4. Sync to S3
-      - name: Deploy to S3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  cd:
+    name: 🚀 CD (Deploy to S3)
+    needs: ci
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            ${{ secrets.AWS_REGION }}
+
+      - name: Sync to S3
         run: |
           aws s3 sync dist/ s3://${{ secrets.BUCKET_NAME }}/ \
             --delete \
             --region ${{ secrets.AWS_REGION }} \
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
-      # 5. Success message
-      - name: Success
-        run: echo "Website now up at http://${{ secrets.BUCKET_NAME }}.s3-website.${{ secrets.AWS_REGION }}.amazonaws.com"
+      - name: Success 🎉
+        run: |
+          echo "✅ Deployment complete!"
+          echo "  Visit your S3 website endpoint in the AWS console or construct it as:"
+          echo "    http://<your-bucket-name>.s3-website.<your-region>.amazonaws.com"
