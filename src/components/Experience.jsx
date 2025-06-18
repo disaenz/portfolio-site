@@ -60,15 +60,20 @@ const experiences = [
     title: "Software Engineer",
     date: "Aug 2016 – Sep 2017",
     bullets: [
-      "Created and maintained internal reporting tools using C#, SharePoint, and AngularJS, integrating Web Services for dynamic data access."
+      "Developed enterprise web applications using SharePoint, AngularJS, C#, and Web Services to deliver robust client solutions.",
+      "Facilitated weekly code reviews and client demos, gathering feedback and ensuring alignment with project objectives."
     ]
   },
   {
-    company: "IDOCKET.COM",
+    company: "iDocket.com",
     title: "Software Engineer",
     date: "May 2012 – Jul 2016",
     bullets: [
-      "Maintained and extended web systems used by law enforcement agencies and county offices, leveraging Java, C#, and PHP."
+      "Led design & development of web-based applications for county courts and correctional facilities using Java, ASP.NET (C#), and PHP, backed by MySQL & SQL Server.",
+      "Built VBScript and batch-file monitoring scripts to automate daily data backups and system health checks, reducing manual effort by 80%.",
+      "Authored SQL ETL processes to ingest and normalize data from TXT, XML, and CSV sources, ensuring data integrity and consistency.",
+      "Provided 24/7 production support, rapidly diagnosing and resolving incidents to maintain >99.9% uptime.",
+      "Collaborated with clients to gather requirements, translate business needs into technical specifications, and scope new feature roadmaps."
     ]
   }
 ];
