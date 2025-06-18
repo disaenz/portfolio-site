@@ -5,12 +5,14 @@ import {
   Heading,
   Text,
   Button,
-  Avatar,
+  Image,
   Stack,
   Link,
   Show,
   Hide,
 } from "@chakra-ui/react";
+
+import portrait from "../assets/portrait.png";
 
 export default function Hero() {
   return (
@@ -60,7 +62,6 @@ export default function Hero() {
           </Link>
         </Stack>
 
-        
         <Hide below="md">
           <Text
             fontSize="xs"
@@ -72,7 +73,6 @@ export default function Hero() {
           </Text>
         </Hide>
 
-       
         <Show below="md">
           <Stack
             as="footer"
@@ -89,13 +89,14 @@ export default function Hero() {
         </Show>
       </Box>
 
-      
       <Box flex="1" display="flex" justifyContent="center">
-        <Avatar
-          boxSize={{ base: "200px", md: "300px" }}
-          size="2xl"
-          src="https://ui-avatars.com/api/?name=Daniel+Saenz&background=2D3748&color=ffffff"
-          borderWidth="4px"
+        <Image
+          src={portrait}
+          alt="Portrait"
+          boxSize={{ base: "250px", md: "300px" }}
+          objectFit="cover"
+          borderRadius="full"
+          border="4px solid"
           borderColor="teal.300"
           ml={{ base: 0, md: 16 }}
         />
