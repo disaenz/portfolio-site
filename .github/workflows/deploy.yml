@@ -38,10 +38,12 @@ jobs:
           path: dist/
 
   cd:
-    name: 🚀 CD (Deploy to S3)
+    name: 🚀 CD (Deploy to S3 + CloudFront)
     needs: ci
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    env:
+      DOMAIN: "daniel-saenz.com"
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -58,13 +60,33 @@ jobs:
 
       - name: Sync to S3
         run: |
+          if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+            echo "❌ Build directory dist is empty. Aborting."
+            exit 1
+          fi
           aws s3 sync dist/ s3://${{ secrets.BUCKET_NAME }}/ \
             --delete \
             --region ${{ secrets.AWS_REGION }} \
             --cache-control "max-age=0,no-cache,no-store,must-revalidate"
 
+      - name: Invalidate CloudFront Cache
+        run: |
+          echo "🔍 Looking up CloudFront distribution for $DOMAIN…"
+          DISTRIBUTION_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?contains(Aliases.Items, \`${DOMAIN}\`)].Id | [0]" \
+            --output text)
+          if [[ -z "$DISTRIBUTION_ID" || "$DISTRIBUTION_ID" == "None" ]]; then
+            echo "❌ Error: could not find a CloudFront distribution for $DOMAIN" >&2
+            exit 1
+          fi
+          echo "→ Found distribution ID: $DISTRIBUTION_ID"
+          echo "🗑️  Creating CloudFront invalidation…"
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/*" \
+            --region us-east-1
+
       - name: Success 🎉
         run: |
           echo "✅ Deployment complete!"
-          echo "  Visit your S3 website endpoint in the AWS console or construct it as:"
-          echo "    http://<your-bucket-name>.s3-website.<your-region>.amazonaws.com"
+          echo "  Your site should be live at: https://${{ env.DOMAIN }}/"
