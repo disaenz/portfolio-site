@@ -61,6 +61,12 @@ export default function Hero() {
             LinkedIn
           </Link>
         </Stack>
+        <Text fontSize="xs" mt={3}>
+          <Text as="span" color="teal.300" as="b" display="inline">
+            Email:
+          </Text>{" "}
+          <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>
+        </Text>
 
         <Hide below="md">
           <Text
