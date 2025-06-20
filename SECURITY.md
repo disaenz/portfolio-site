@@ -12,7 +12,7 @@ If you discover a security vulnerability in this repository, please follow these
 
 1. **Confidential Reporting**
 
-   * Email me directly at **[disaenz2@gmail.com](mailto:security@disaenz.dev)** (PGP key available on request).
+   * Email me directly at **[disaenz2@gmail.com](mailto:disaenz2@gmail.com)** (PGP key available on request).
    * Please include:
 
      * A clear description of the vulnerability.
