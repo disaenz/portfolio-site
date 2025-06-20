@@ -17,7 +17,7 @@ import chakraImage from "../assets/chakra.png";
 const projects = [
   {
     title: "Terraform Demo",
-    description: "IaC pipeline with GitHub Actions",
+    description: "Reliable, scalable AWS infrastructure managed via Terraform and deployed automatically with GitHub Actions",
     fontSize: "sm",
     repoLink: "https://github.com/disaenz/aws-iac",
     img: iacImage,
@@ -27,7 +27,7 @@ const projects = [
   },
   {
     title: "React Portfolio",
-    description: "This site, built with React + Chakra UI",
+    description: "This site, created with React and Chakra UI, delivers a responsive, accessible, and visually engaging portfolio",
     fontSize: "sm",
     repoLink: "https://github.com/disaenz/portfolio-site",
     img: chakraImage,

@@ -34,7 +34,8 @@ const experiences = [
       "Managed container deployments using Docker and Kubernetes on Red Hat OpenShift, leveraging GitOps workflows with ArgoCD and GitLab CI to streamline delivery across environments.",
       "Led a cloud migration proof of concept, using Terraform to provision and manage infrastructure across AWS, Azure, GCP, and OCI.",
       "Supported blue/green deployment strategies to enable minimal downtime and fast rollback during production releases.",
-      "Created portable CI/CD shell script libraries to standardize builds and reduce developer onboarding time."
+      "Created portable CI/CD shell script libraries to standardize builds and reduce developer onboarding time.",
+      "Migrated container build workflows from Docker to rootless Podman and Buildah, overcoming non-root image build challenges to align with updated security policies."
     ]
   },
   {
