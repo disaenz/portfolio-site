@@ -62,9 +62,9 @@ export default function Hero() {
           </Link>
         </Stack>
         <Text fontSize="xs" mt={3}>
-          <Text as="span" color="teal.300" as="b" display="inline">
+          <Box as="span" color="teal.300" fontWeight="bold" display="inline">
             Email:
-          </Text>{" "}
+          </Box>{" "}
           <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>
         </Text>
 
