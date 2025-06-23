@@ -25,13 +25,14 @@ export default function About() {
         Oracle Cloud, ensuring minimal downtime and zero data loss.
       </Text>
       <Text fontSize="lg" color="gray.700" maxW="3xl" mx="auto" mb={4}>
-        I quickly acquire proficiency in new languages and frameworks—enabling 
-        swift adaptation to evolving requirements and emerging technologies.
+        Technology changes constantly. To keep up with technology, 
+        I quickly acquire proficiency in new languages and frameworks.
       </Text>
-      <Text fontSize="lg" color="gray.700" maxW="3xl" mx="auto">
-        Outside of work, I love traveling or hanging out with my
-        family, making memories in places like Disneyland and other places 
-        around the world.
+      <Text fontSize="lg" color="gray.700" maxW="3xl" mx="auto" mb={4}>
+        Beyond work, I love watching baseball and soccer. Rooting for the Dodgers 
+        at Dodger Stadium or watching a high-stakes soccer game, especially if Mexico 
+        or the US is playing. I also cherish family adventures, especially visits to Disneyland 
+        and discovering new corners around the world.
       </Text>
       <Box mt={8} textAlign="center">
         <Link
