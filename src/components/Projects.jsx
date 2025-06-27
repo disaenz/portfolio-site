@@ -17,7 +17,7 @@ import grantApiImage from "../assets/microservices.png";
 
 const projects = [
   {
-    title: "Terraform Demo",
+    title: "Infrastructure as Code",
     description: "Reliable, scalable AWS infrastructure managed via Terraform and deployed automatically with GitHub Actions.",
     fontSize: "sm",
     repoLink: "https://github.com/disaenz/aws-iac",
@@ -37,7 +37,7 @@ const projects = [
     pipelineLink: "https://github.com/disaenz/portfolio-site/actions"
   },
   {
-  title: "Grant API",
+  title: "Python Microservice",
   description:
     "A serverless microservice for grant data, built with FastAPI and Python. Automated builds, security scans, and deployments to AWS Lambda with CI/CD.",
   fontSize: "sm",
@@ -98,7 +98,7 @@ export default function Projects() {
             </Link>
 
             <Box pt={0} px={6} pb={6}>
-              <Heading as="h3" size="md" mb={2}>
+              <Heading as="h3" size="sm" mb={2} color="teal.600" mt={4}>
                 {p.title}
               </Heading>
               <Text mb={4} color="gray.600" fontSize={p.fontSize} fontWeight="medium">
