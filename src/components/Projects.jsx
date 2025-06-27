@@ -13,28 +13,41 @@ import {
 
 import iacImage from "../assets/infra.png";
 import chakraImage from "../assets/chakra.png";
+import grantApiImage from "../assets/microservices.png";
 
 const projects = [
   {
     title: "Terraform Demo",
-    description: "Reliable, scalable AWS infrastructure managed via Terraform and deployed automatically with GitHub Actions",
+    description: "Reliable, scalable AWS infrastructure managed via Terraform and deployed automatically with GitHub Actions.",
     fontSize: "sm",
     repoLink: "https://github.com/disaenz/aws-iac",
     img: iacImage,
     pipelineBadge:
       "https://github.com/disaenz/aws-iac/actions/workflows/iac-deploy.yml/badge.svg",
-    pipelineLink: "https://github.com/disaenz/aws-iac/actions",
+    pipelineLink: "https://github.com/disaenz/aws-iac/actions"
   },
   {
     title: "React Portfolio",
-    description: "This site, created with React and Chakra UI, delivers a responsive, accessible, and visually engaging portfolio",
+    description: "This site, created with React and Chakra UI, delivers a responsive, accessible, and visually engaging portfolio.",
     fontSize: "sm",
     repoLink: "https://github.com/disaenz/portfolio-site",
     img: chakraImage,
     pipelineBadge:
       "https://github.com/disaenz/portfolio-site/actions/workflows/deploy.yml/badge.svg",
-    pipelineLink: "https://github.com/disaenz/portfolio-site/actions",
+    pipelineLink: "https://github.com/disaenz/portfolio-site/actions"
   },
+  {
+  title: "Grant API",
+  description:
+    "A serverless microservice for grant data, built with FastAPI and Python. Automated builds, security scans, and deployments to AWS Lambda with CI/CD.",
+  fontSize: "sm",
+  repoLink: "https://github.com/disaenz/grant-api",
+  img: grantApiImage,
+  pipelineBadge:
+    "https://github.com/disaenz/grant-api/actions/workflows/lambda-deploy.yml/badge.svg",
+  pipelineLink: "https://github.com/disaenz/grant-api/actions",
+  demoLink: "https://api.daniel-saenz.com/docs"
+}
 ];
 
 export default function Projects() {
@@ -100,6 +113,17 @@ export default function Projects() {
               />
             </Link>
             <HStack mt={4} spacing={2} align="center">
+              {p.demoLink && (
+                <Link
+                  href={p.demoLink}
+                  isExternal
+                  color="teal.500"
+                  fontWeight="bold"
+                  fontSize="sm"
+                >
+                  View Demo
+                </Link>
+              )}
               <Link
                   href={p.pipelineLink}
                   isExternal
@@ -109,7 +133,6 @@ export default function Projects() {
                 >
                   View Pipeline
                 </Link>
-                {/* Learn More */}
               <Link
                 href={p.repoLink}
                 color="teal.500"
