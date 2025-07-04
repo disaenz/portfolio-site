@@ -14,6 +14,7 @@ import {
 import iacImage from "../assets/infra.png";
 import chakraImage from "../assets/chakra.png";
 import grantApiImage from "../assets/microservices.png";
+import reactImage from "../assets/react.png";
 
 const projects = [
   {
@@ -47,6 +48,18 @@ const projects = [
     "https://github.com/disaenz/grant-api/actions/workflows/lambda-deploy.yml/badge.svg",
   pipelineLink: "https://github.com/disaenz/grant-api/actions",
   demoLink: "https://api.daniel-saenz.com/docs"
+},
+{
+  title: "React Frontend App",
+  description:
+    "A serverless React frontend for grant management, built with modern React. Integrates with the Python microservice API. Automated builds, lint checks, and deployments to AWS with CI/CD.",
+  fontSize: "sm",
+  repoLink: "https://github.com/disaenz/grant-app",
+  img: reactImage,
+  pipelineBadge:
+    "https://github.com/disaenz/grant-app/actions/workflows/deploy.yml/badge.svg",
+  pipelineLink: "https://github.com/disaenz/grant-app/actions",
+  demoLink: "https://grants.daniel-saenz.com/"
 }
 ];
 
