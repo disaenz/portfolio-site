@@ -15,6 +15,7 @@ import iacImage from "../assets/infra.png";
 import chakraImage from "../assets/chakra.png";
 import grantApiImage from "../assets/microservices.png";
 import reactImage from "../assets/react.png";
+import devsecopsImage from "../assets/devsecops.png";
 
 const projects = [
   {
@@ -60,7 +61,15 @@ const projects = [
     "https://github.com/disaenz/grant-app/actions/workflows/deploy.yml/badge.svg",
   pipelineLink: "https://github.com/disaenz/grant-app/actions",
   demoLink: "https://grants.daniel-saenz.com/"
-}
+},
+{
+    title: "DevSecOps PoC (EPCC)",
+    description:
+      "End-to-end DevSecOps demo with CI/CD, Docker, Jenkins, and Kubernetes, built for El Paso Community College. Presented live for students and faculty as an educational proof of concept.",
+    fontSize: "sm",
+    repoLink: "https://github.com/disaenz/hello_world_devsecops",
+    img: devsecopsImage
+  }
 ];
 
 export default function Projects() {
@@ -118,6 +127,7 @@ export default function Projects() {
                 {p.description}
               </Text>
             
+            {p.pipelineBadge && p.pipelineLink && (
             <Link href={p.pipelineLink} isExternal>
               <Image
                 src={p.pipelineBadge}
@@ -125,6 +135,7 @@ export default function Projects() {
                 h="20px"
               />
             </Link>
+          )}
             <HStack mt={4} spacing={2} align="center">
               {p.demoLink && (
                 <Link
@@ -137,15 +148,17 @@ export default function Projects() {
                   View Demo
                 </Link>
               )}
+              {p.pipelineLink && (
               <Link
-                  href={p.pipelineLink}
-                  isExternal
-                  color="teal.500"
-                  fontWeight="bold"
-                  fontSize="sm"
-                >
-                  View Pipeline
-                </Link>
+                href={p.pipelineLink}
+                isExternal
+                color="teal.500"
+                fontWeight="bold"
+                fontSize="sm"
+              >
+                View Pipeline
+              </Link>
+            )}
               <Link
                 href={p.repoLink}
                 color="teal.500"
