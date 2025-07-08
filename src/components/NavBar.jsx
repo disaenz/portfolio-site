@@ -102,6 +102,15 @@ export default function NavBar() {
           >
             Projects
           </Link>
+          <Link
+            href="#media"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
+            Media
+          </Link>
         </HStack>
       </Flex>
 
@@ -120,6 +129,7 @@ export default function NavBar() {
               { label: "Education", href: "#education" },
               { label: "Skills", href: "#skills" },
               { label: "Projects", href: "#projects" },
+              { label: "Media", href: "#media" },
             ].map((item) => (
               <Link
                 key={item.href}
