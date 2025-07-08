@@ -67,7 +67,7 @@ const projects = [
     description:
       "End-to-end DevSecOps demo with CI/CD, Docker, Jenkins, and Kubernetes, built for El Paso Community College. Presented live for students and faculty as an educational proof of concept.",
     fontSize: "sm",
-    repoLink: "https://github.com/disaenz/hello-world-devsecops",
+    repoLink: "https://github.com/disaenz/hello_world_devsecops",
     img: devsecopsImage
   }
 ];
