@@ -15,6 +15,7 @@ import iacImage from "../assets/infra.png";
 import chakraImage from "../assets/chakra.png";
 import grantApiImage from "../assets/microservices.png";
 import reactImage from "../assets/react.png";
+import devsecopsImage from "../assets/microservices.png";
 
 const projects = [
   {
@@ -60,7 +61,15 @@ const projects = [
     "https://github.com/disaenz/grant-app/actions/workflows/deploy.yml/badge.svg",
   pipelineLink: "https://github.com/disaenz/grant-app/actions",
   demoLink: "https://grants.daniel-saenz.com/"
-}
+},
+{
+    title: "DevSecOps (EPCC Proof of Concept)",
+    description:
+      "A cloud-native, end-to-end CI/CD demo built for El Paso Community College. Showcases secure DevSecOps automation with React, Node.js, Docker, Jenkins, and Kubernetes. Presented live for students and faculty. Not live; educational only.",
+    fontSize: "sm",
+    repoLink: "https://github.com/disaenz/hello-world-devsecops",
+    img: devsecopsImage
+  }
 ];
 
 export default function Projects() {
