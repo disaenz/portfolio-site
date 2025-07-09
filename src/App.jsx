@@ -8,6 +8,7 @@ import Projects from "./components/Projects.jsx";
 import Footer from "./components/Footer.jsx";
 import Experience from "./components/Experience.jsx";
 import Education from "./components/Education.jsx";
+import MediaAndHighlights from "./components/MediaAndHighlights.jsx";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Education />
         <Skills />
         <Projects />
+        <MediaAndHighlights />
         <Footer />
       </Box>
     </Box>

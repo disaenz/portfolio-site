@@ -19,9 +19,9 @@ export default function NavBar() {
         as="header"
         maxW="1200px"
         mx="auto"
-        px={{ base: 4, md: 8 }}
-        position={{ base: "relative", md: "sticky" }}
-        top={{ base: "auto", md: 0 }}
+        px={{ base: 4, lg: 8 }}
+        position={{ base: "relative", lg: "sticky" }}
+        top={{ base: "auto", lg: 0 }}
         zIndex="1000"
         bg="teal.600"
         color="white"
@@ -33,7 +33,7 @@ export default function NavBar() {
         <Link
           href="#hero"
           fontFamily="'Leckerli One', cursive"
-          fontSize={{ base: "3xl", md: "3xl" ,lg: "4xl" }}
+          fontSize={{ base: "3xl", md: "3xl", lg: "4xl" }}
           fontWeight="bold"
           _hover={{ transform: "scale(1.15)", color: "white" }}
           transition="transform 0.3s, color 0.3s"
@@ -43,7 +43,7 @@ export default function NavBar() {
 
         {/* mobile menu button */}
         <IconButton
-          display={{ base: "block", md: "none" }}
+          display={{ base: "block", lg: "none" }}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           onClick={onToggle}
@@ -55,7 +55,7 @@ export default function NavBar() {
         <HStack
           as="nav"
           spacing={4}
-          display={{ base: "none", md: "flex" }}
+          display={{ base: "none", lg: "flex" }}
         >
           <Link
             href="#about"
@@ -102,6 +102,15 @@ export default function NavBar() {
           >
             Projects
           </Link>
+          <Link
+            href="#media"
+            px={4}
+            py={3}
+            rounded="md"
+            _hover={{ bg: "teal.700", transform: "translateY(-2px)", color: "white" }}
+          >
+            Media
+          </Link>
         </HStack>
       </Flex>
 
@@ -111,7 +120,7 @@ export default function NavBar() {
           as="nav"
           direction="column"
           bg="teal.600"
-          display={{ base: "flex", md: "none" }}
+          display={{ base: "flex", lg: "none" }}
         >
           <VStack spacing={0}>
             {[
@@ -120,6 +129,7 @@ export default function NavBar() {
               { label: "Education", href: "#education" },
               { label: "Skills", href: "#skills" },
               { label: "Projects", href: "#projects" },
+              { label: "Media", href: "#media" },
             ].map((item) => (
               <Link
                 key={item.href}
