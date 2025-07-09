@@ -17,7 +17,7 @@ export default function NavBar() {
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Only enable auto-hide for base and md screens
+  // Only enable auto-hide for base and md screens (below lg)
   const isAutoHide = useBreakpointValue({ base: true, lg: false });
 
   // When menu is open, force NavBar to show
@@ -26,7 +26,10 @@ export default function NavBar() {
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isAutoHide) return;
+    if (!isAutoHide) {
+      setShowNav(true); // Always show nav on lg and up
+      return;
+    }
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -34,23 +37,33 @@ export default function NavBar() {
         setShowNav(true);
       } else if (currentScrollY < lastScrollY) {
         setShowNav(true);
-      } else if (!isOpen) { // Only hide nav if menu is not open
+      } else if (!isOpen) {
         setShowNav(false);
       }
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isAutoHide, isOpen]);
 
   // For mobile/tablet, use fixed positioning so it can hide/show
+  // For desktop, sticky at the top
   const navPosition =
-    isAutoHide && !showNav && !isOpen
-      ? { position: "fixed", top: "-80px", transition: "top 0.3s", w: "100%", zIndex: 1000 }
-      : isAutoHide
-      ? { position: "fixed", top: 0, transition: "top 0.3s", w: "100%", zIndex: 1000 }
-      : {};
+    isAutoHide
+      ? {
+          position: "fixed",
+          top: showNav || isOpen ? 0 : "-80px",
+          transition: "top 0.3s",
+          w: "100%",
+          zIndex: 1000,
+        }
+      : {
+          position: "sticky",
+          top: 0,
+          w: "100%",
+          zIndex: 1000,
+        };
 
   return (
     <>
@@ -60,9 +73,6 @@ export default function NavBar() {
           maxW="1200px"
           mx="auto"
           px={{ base: 4, lg: 8 }}
-          position={{ base: isAutoHide ? "static" : "relative", lg: "sticky" }}
-          top={{ base: "auto", lg: 0 }}
-          zIndex="1000"
           bg="teal.600"
           color="white"
           boxShadow="sm"
