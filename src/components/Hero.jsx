@@ -95,7 +95,7 @@ export default function Hero() {
         </Show>
       </Box>
 
-      <Box flex="1" display="flex" justifyContent="center">
+      <Box flex="1" display="flex" justifyContent="center" mt={{ base: 20, md: 0 }}>
         <Image
           src={portrait}
           alt="Portrait"
