@@ -36,7 +36,7 @@ export default function MediaAndHighlights() {
         textAlign="center"
         maxW="600px"
         >
-        My interview on <Text as="span" fontWeight="bold" color="teal.300">“The Hackers' Corner” (EPCC)</Text>, where I share my DevOps journey, discuss cloud security, and offer advice for those interested in tech careers.
+        My interview on <Text as="span" fontWeight="bold" color="teal.300">“The Hackers' Corner”</Text> at EPCC, where I share my DevOps journey, discuss cloud security, and offer advice for those interested in tech careers.
         </Text>
       </VStack>
     </Box>
