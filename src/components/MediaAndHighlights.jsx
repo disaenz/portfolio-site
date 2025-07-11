@@ -20,17 +20,20 @@ const images = [
   {
     url: "https://www.dropbox.com/scl/fi/lhoork9gsv8xte8hwja5u/IMG_5271.jpeg?rlkey=azqb6sr6ja97hrr72lbknzp4d&st=jz2f5jqu&raw=1",
     title: "Copilot Workshop in Arlington VA",
-    description: "Attended a hands-on Copilot workshop at Microsoft HQ in Arlington, VA, exploring the latest in Azure Copilot and GPT-powered AI development."
+    description: "Attended a hands-on Copilot workshop at Microsoft HQ in Arlington, VA, exploring the latest in Azure Copilot and GPT-powered AI development.",
+    date: "July 25, 2024"
   },
   {
     url: "https://www.dropbox.com/scl/fi/oenw2qobz7du4iwpylps4/IMG_5292.jpeg?rlkey=muqa9lie8i3wqx50eo8m6mhlm&st=9a41b5t6&raw=1",
     title: "GPT-Enabled Copilot Robot",
-    description: "At the Copilot workshop, I tried out this GPT-enabled demo robot that holds real-time conversations—just like talking to a person! It’s powered by Microsoft Copilot’s AI and was truly impressive."
+    description: "At the Copilot workshop, I tried out this GPT-enabled demo robot that holds real-time conversations—just like talking to a person! It’s powered by Microsoft Copilot’s AI and was truly impressive.",
+    date: "July 26, 2024"
   },
   {
     url: "https://www.dropbox.com/scl/fi/bl2ywc5mhjnlir834byow/IMG_6279.jpeg?rlkey=v3gkllcmknh1sg67ton4z7u2q&st=wakb45nn&raw=1",
     title: "Microsoft Interactive Room",
-    description: "Celebrating the completion of a collaborative Copilot workshop at Microsoft HQ, joined by talented peers. The Capitol Building makes a great backdrop for a successful day of learning and innovation."
+    description: "Celebrating the completion of a collaborative Copilot workshop at Microsoft HQ, joined by talented peers. The Capitol Building makes a great backdrop for a successful day of learning and innovation.",
+    date: "July 26, 2024"
   }
 ];
 
@@ -38,7 +41,7 @@ const IMAGES_PER_PAGE = 3;
 
 export default function MediaAndHighlights() {
   const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState(null); 
+  const [selected, setSelected] = useState(null);
 
   const totalPages = Math.ceil(images.length / IMAGES_PER_PAGE);
 
@@ -176,9 +179,17 @@ export default function MediaAndHighlights() {
                       disabled={images.length <= 1}
                     />
                   </Box>
+                  <Text mt={3} color="teal.300" fontWeight="bold" fontSize="lg" textAlign="center">
+                    {images[selected].title}
+                  </Text>
                   <Text mt={1} color="gray.200" fontSize="sm" textAlign="center">
                     {images[selected].description}
                   </Text>
+                  {images[selected].date && (
+                    <Text mt={1} color="gray.400" fontSize="xs" textAlign="center">
+                      {images[selected].date}
+                    </Text>
+                  )}
                 </>
               )}
             </ModalBody>
