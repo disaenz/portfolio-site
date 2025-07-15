@@ -144,12 +144,27 @@ export default function MediaAndHighlights() {
         {/* Lightbox Modal */}
         <Modal isOpen={selected !== null} onClose={closeModal} isCentered size="xl">
           <ModalOverlay />
-          <ModalContent bg="gray.900">
-            <ModalCloseButton color="white" />
-            <ModalBody p={2} display="flex" flexDirection="column" alignItems="center">
+          <ModalContent
+            bg="gray.900"
+            maxW={{ base: "85vw", md: "600px" }}
+          >
+            <ModalCloseButton 
+              color="white" 
+              bg="rgba(0,0,0,0.7)"
+              _hover={{
+                bg: "gray.800"
+              }}
+              />
+            <ModalBody
+              p={2}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              w="100%"
+            >
               {selected !== null && (
                 <>
-                  <Box display="flex" alignItems="center" justifyContent="center">
+                  <Box display="flex" alignItems="center" justifyContent="center" w="100%">
                     <IconButton
                       aria-label="Prev"
                       icon={<ArrowBackIcon />}
@@ -162,11 +177,10 @@ export default function MediaAndHighlights() {
                     <Image
                       src={images[selected].url}
                       alt={images[selected].title}
-                      maxH="60vh"
-                      maxW="80vw"
-                      borderRadius="lg"
+                      w="100%"
+                      maxW={{ base: "75vw", md: "600px" }}
                       objectFit="contain"
-                      bg="gray.800"
+                      borderRadius="lg"
                       shadow="lg"
                     />
                     <IconButton
