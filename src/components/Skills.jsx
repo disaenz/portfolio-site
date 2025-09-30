@@ -43,6 +43,10 @@ export default function Skills() {
       ],
     },
     {
+      title: "Productivity & Automation Tools",
+      skills: ["Azure Copilot", "Microsoft Forms", "Power Automate"],
+    },
+    {
       title: "Infrastructure as Code",
       skills: ["Terraform", "CloudFormation"],
     },
@@ -110,7 +114,6 @@ export default function Skills() {
       title: "AI & Machine Learning Services",
       skills: [
         "Azure Cognitive Services",
-        "Azure Copilot",
         "Amazon Polly",
         "Amazon Transcribe",
         "Amazon Comprehend",
