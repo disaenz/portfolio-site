@@ -13,11 +13,8 @@ import {
 } from "@chakra-ui/react";
 
 import portrait from "../assets/portrait.png";
-import ChatModal from "./ChatModal";
 
-export default function Hero() {
-  const [isChatOpen, setIsChatOpen] = React.useState(false);
-
+export default function Hero({ onOpenChat }) {
   return (
     <Flex
       as="section"
@@ -49,14 +46,10 @@ export default function Hero() {
         </Heading>
 
         <Text fontSize="lg" mb={6} px={{ base: 2, md: 0 }}>
-          Ask me anything about my experience, skills, or career. I&apos;m here
-          to help!
+          Ask me anything about my experience, skills, or career. I&apos;m here to help!
         </Text>
 
-        <Stack
-          direction={{ base: "column", sm: "row" }}
-          spacing={4}
-        >
+        <Stack direction={{ base: "column", sm: "row" }} spacing={4}>
           <Button
             colorScheme="teal"
             size="lg"
@@ -74,7 +67,7 @@ export default function Hero() {
             size="lg"
             borderColor="teal.300"
             color="teal.300"
-            onClick={() => setIsChatOpen(true)}
+            onClick={onOpenChat}
           >
             💬 Ask the AI
           </Button>
@@ -86,11 +79,7 @@ export default function Hero() {
           justify={{ base: "center", md: "flex-start" }}
           mt={6}
         >
-          <Link
-            href="https://github.com/disaenz"
-            isExternal
-            fontWeight="bold"
-          >
+          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">
             GitHub
           </Link>
           <Link
@@ -106,27 +95,17 @@ export default function Hero() {
           <Box as="span" color="teal.300" fontWeight="bold">
             Email:
           </Box>{" "}
-          <Link href="mailto:disaenz2@gmail.com">
-            disaenz2@gmail.com
-          </Link>
+          <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>
         </Text>
 
         <Hide below="md">
           <Text fontSize="xs" color="gray.400" textAlign="left" mt={4}>
-            Built with React &amp; Chakra UI • CI/CD via GitHub Actions •
-            Deployed on AWS
+            Built with React &amp; Chakra UI • CI/CD via GitHub Actions • Deployed on AWS
           </Text>
         </Hide>
 
         <Show below="md">
-          <Stack
-            as="footer"
-            spacing={1}
-            fontSize="xs"
-            color="gray.400"
-            textAlign="center"
-            mt={4}
-          >
+          <Stack as="footer" spacing={1} fontSize="xs" color="gray.400" textAlign="center" mt={4}>
             <Box>Built with React &amp; Chakra UI</Box>
             <Box>CI/CD via GitHub Actions</Box>
             <Box>Deployed on AWS</Box>
@@ -134,12 +113,8 @@ export default function Hero() {
         </Show>
       </Box>
 
-      <Box
-        flex="1"
-        display="flex"
-        justifyContent="center"
-        mt={{ base: 20, md: 0 }}
-      >
+      {/* Portrait */}
+      <Box flex="1" display="flex" justifyContent="center" mt={{ base: 20, md: 0 }}>
         <Image
           src={portrait}
           alt="Portrait"
@@ -151,12 +126,6 @@ export default function Hero() {
           ml={{ base: 0, md: 16 }}
         />
       </Box>
-
-      {/* Chat Modal */}
-      <ChatModal
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-      />
     </Flex>
   );
 }
