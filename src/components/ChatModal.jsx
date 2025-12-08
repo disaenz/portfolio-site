@@ -21,6 +21,27 @@ import {
   Link,
 } from "@chakra-ui/react";
 
+// Custom markdown link component
+function MarkdownLink({ href, children }) {
+  return (
+    <Link href={href} isExternal color="teal.200" fontWeight="bold">
+      {children}
+    </Link>
+  );
+}
+MarkdownLink.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+// Custom markdown list item component
+function MarkdownListItem({ children }) {
+  return <li style={{ marginLeft: "18px" }}>{children}</li>;
+}
+MarkdownListItem.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 // API base URL fallback
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
@@ -46,9 +67,10 @@ export default function ChatModal({ isOpen, onClose }) {
         },
       ]);
     }
-  }, []); // eslint-disable-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Auto-scroll only when user triggers it
+  // Auto-scroll only on user message
   React.useEffect(() => {
     if (shouldScroll) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -60,12 +82,7 @@ export default function ChatModal({ isOpen, onClose }) {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
 
-    const userMsg = {
-      id: `user-${Date.now()}`,
-      from: "user",
-      text: trimmed,
-    };
-
+    const userMsg = { id: `user-${Date.now()}`, from: "user", text: trimmed };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
@@ -76,16 +93,10 @@ export default function ChatModal({ isOpen, onClose }) {
         message: trimmed,
       });
 
-      const aiMsg = {
-        id: `ai-${Date.now()}`,
-        from: "ai",
-        text: res.data.reply,
-      };
-
+      const aiMsg = { id: `ai-${Date.now()}`, from: "ai", text: res.data.reply };
       setMessages((prev) => [...prev, aiMsg]);
     } catch (error) {
       console.error("Chat error:", error);
-
       toast({
         title: "Connection issue",
         description: "Please try again.",
@@ -141,10 +152,10 @@ export default function ChatModal({ isOpen, onClose }) {
         <ModalCloseButton />
 
         <ModalBody
-          display="flex"
-          flexDirection="column"
           pt={4}
           pb={2}
+          display="flex"
+          flexDirection="column"
           overflow="hidden"
           flex="1"
         >
@@ -174,6 +185,7 @@ export default function ChatModal({ isOpen, onClose }) {
                     {msg.from === "user" ? "You" : "Daniel (AI)"}
                   </Text>
 
+                  {/* Markdown rendering */}
                   <Box
                     fontSize="sm"
                     sx={{
@@ -185,14 +197,8 @@ export default function ChatModal({ isOpen, onClose }) {
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        a: (props) => (
-                          <Link href={props.href} isExternal color="teal.200">
-                            {props.children}
-                          </Link>
-                        ),
-                        li: (props) => (
-                          <li style={{ marginLeft: "18px" }}>{props.children}</li>
-                        ),
+                        a: MarkdownLink,
+                        li: MarkdownListItem,
                       }}
                     >
                       {msg.text}
@@ -211,7 +217,9 @@ export default function ChatModal({ isOpen, onClose }) {
                   gap={2}
                 >
                   <Spinner size="sm" />
-                  <Text fontSize="sm" color="gray.200">Thinking…</Text>
+                  <Text fontSize="sm" color="gray.200">
+                    Thinking…
+                  </Text>
                 </Box>
               )}
 
