@@ -25,6 +25,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Inject .env file only for build
+      - name: Inject API environment variable
+        run: |
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
+          echo "Created .env with API Base URL"
+
       - name: 🛡️ Static code analysis (ESLint)
         run: npm run lint
 
@@ -88,5 +94,5 @@ jobs:
 
       - name: Success 🎉
         run: |
-          echo "✅ Deployment complete!"
-          echo "  Your site should be live at: https://${{ env.DOMAIN }}/"
+          echo "🔥 Deployment complete!"
+          echo "Your site should be live at: https://${{ env.DOMAIN }}/"
