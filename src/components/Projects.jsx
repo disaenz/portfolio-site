@@ -39,17 +39,17 @@ const projects = [
     pipelineLink: "https://github.com/disaenz/portfolio-site/actions"
   },
   {
-  title: "Python Microservice",
+  title: "Portfolio API (Python Serverless)",
   description:
-    "A serverless microservice for grant data, built with FastAPI and Python. Automated builds, security scans, and deployments to AWS Lambda with CI/CD.",
+    "A scalable serverless API built with FastAPI and Python, powering portfolio features like the AI Résumé Assistant and grant data services. Fully automated CI/CD pipeline, security scanning, and monitoring — deployed to AWS Lambda through API Gateway.",
   fontSize: "sm",
-  repoLink: "https://github.com/disaenz/grant-api",
+  repoLink: "https://github.com/disaenz/portfolio-api",
   img: grantApiImage,
   pipelineBadge:
-    "https://github.com/disaenz/grant-api/actions/workflows/lambda-deploy.yml/badge.svg",
-  pipelineLink: "https://github.com/disaenz/grant-api/actions",
+    "https://github.com/disaenz/portfolio-api/actions/workflows/lambda-deploy.yml/badge.svg",
+  pipelineLink: "https://github.com/disaenz/portfolio-api/actions",
   demoLink: "https://api.daniel-saenz.com/docs"
-},
+},,
 {
   title: "React Frontend App",
   description:
