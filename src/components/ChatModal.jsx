@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import {
   Modal,
   ModalOverlay,
@@ -17,7 +18,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "localhost:5173";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5173";
 console.log("API Base URL:", API_BASE);
 
 export default function ChatModal({ isOpen, onClose }) {
@@ -27,12 +28,10 @@ export default function ChatModal({ isOpen, onClose }) {
   const bottomRef = React.useRef(null);
   const toast = useToast();
 
-  // Auto scroll
   React.useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Reset conversation when modal opens
   React.useEffect(() => {
     if (isOpen) {
       setMessages([
@@ -69,10 +68,9 @@ export default function ChatModal({ isOpen, onClose }) {
     setIsLoading(true);
 
     try {
-      const res = await axios.post(
-        `${API_BASE}/api/ai/chat`,
-        { message: trimmed }
-      );
+      const res = await axios.post(`${API_BASE}/api/ai/chat`, {
+        message: trimmed,
+      });
 
       setMessages((prev) => [
         ...prev,
@@ -98,7 +96,8 @@ export default function ChatModal({ isOpen, onClose }) {
         {
           id: `ai-error-${Date.now()}`,
           from: "ai",
-          text: "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
+          text:
+            "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
         },
       ]);
     } finally {
@@ -114,7 +113,12 @@ export default function ChatModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size={{ base: "full", md: "2xl" }} isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      size={{ base: "full", md: "2xl" }}
+      isCentered
+    >
       <ModalOverlay bg="blackAlpha.700" />
 
       <ModalContent
@@ -127,7 +131,7 @@ export default function ChatModal({ isOpen, onClose }) {
       >
         <ModalHeader borderBottom="1px solid" borderColor="gray.700">
           <Text fontSize="lg" fontWeight="bold">
-            Ask Daniel’s AI Assistant
+            Ask Daniel&apos;s AI Assistant
           </Text>
           <Text fontSize="xs" color="gray.400" mt={1}>
             Bilingual AI · English & Español ✨
@@ -136,14 +140,7 @@ export default function ChatModal({ isOpen, onClose }) {
 
         <ModalCloseButton />
 
-        <ModalBody
-          display="flex"
-          flexDirection="column"
-          pt={4}
-          pb={2}
-          overflow="hidden"
-        >
-          {/* Chat Area */}
+        <ModalBody display="flex" flexDirection="column" pt={4} pb={2} overflow="hidden">
           <Box
             flex="1"
             overflowY="auto"
@@ -168,7 +165,9 @@ export default function ChatModal({ isOpen, onClose }) {
                   <Text fontSize="xs" mb={1} color="gray.300" fontWeight="semibold">
                     {msg.from === "user" ? "You" : "Daniel (AI)"}
                   </Text>
-                  <Text fontSize="sm" whiteSpace="pre-wrap">{msg.text}</Text>
+                  <Text fontSize="sm" whiteSpace="pre-wrap">
+                    {msg.text}
+                  </Text>
                 </Box>
               ))}
 
@@ -182,7 +181,9 @@ export default function ChatModal({ isOpen, onClose }) {
                   gap={2}
                 >
                   <Spinner size="sm" />
-                  <Text fontSize="sm" color="gray.200">Thinking…</Text>
+                  <Text fontSize="sm" color="gray.200">
+                    Thinking…
+                  </Text>
                 </Box>
               )}
 
@@ -190,7 +191,6 @@ export default function ChatModal({ isOpen, onClose }) {
             </Stack>
           </Box>
 
-          {/* Input */}
           <Textarea
             placeholder="Ask me anything… / Pregúntame lo que quieras…"
             value={input}
@@ -222,3 +222,8 @@ export default function ChatModal({ isOpen, onClose }) {
     </Modal>
   );
 }
+
+ChatModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

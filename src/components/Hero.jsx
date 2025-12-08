@@ -33,18 +33,30 @@ export default function Hero() {
       px={{ base: 4, md: 20 }}
     >
       {/* Text side */}
-      <Box flex="1" textAlign={{ base: "center", md: "left" }} mt={{ base: 8, md: 0 }}>
+      <Box
+        flex="1"
+        textAlign={{ base: "center", md: "left" }}
+        mt={{ base: 8, md: 0 }}
+      >
         <Heading as="h1" size="2xl" mb={4}>
           Hi There,
           <br />
-          I’m <Box as="span" color="teal.300">Daniel</Box> 👋
+          I&apos;m{" "}
+          <Box as="span" color="teal.300">
+            Daniel
+          </Box>{" "}
+          👋
         </Heading>
 
         <Text fontSize="lg" mb={6} px={{ base: 2, md: 0 }}>
-          Ask me anything about my experience, skills, or career. I'm here to help!
+          Ask me anything about my experience, skills, or career. I&apos;m here
+          to help!
         </Text>
 
-        <Stack direction={{ base: "column", sm: "row" }} spacing={4}>
+        <Stack
+          direction={{ base: "column", sm: "row" }}
+          spacing={4}
+        >
           <Button
             colorScheme="teal"
             size="lg"
@@ -74,35 +86,60 @@ export default function Hero() {
           justify={{ base: "center", md: "flex-start" }}
           mt={6}
         >
-          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">
+          <Link
+            href="https://github.com/disaenz"
+            isExternal
+            fontWeight="bold"
+          >
             GitHub
           </Link>
-          <Link href="https://www.linkedin.com/in/daniel-saenz-devops" isExternal fontWeight="bold">
+          <Link
+            href="https://www.linkedin.com/in/daniel-saenz-devops"
+            isExternal
+            fontWeight="bold"
+          >
             LinkedIn
           </Link>
         </Stack>
 
         <Text fontSize="xs" mt={3}>
-          <Box as="span" color="teal.300" fontWeight="bold">Email:</Box>{" "}
-          <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>
+          <Box as="span" color="teal.300" fontWeight="bold">
+            Email:
+          </Box>{" "}
+          <Link href="mailto:disaenz2@gmail.com">
+            disaenz2@gmail.com
+          </Link>
         </Text>
 
         <Hide below="md">
           <Text fontSize="xs" color="gray.400" textAlign="left" mt={4}>
-            Built with React & Chakra UI • CI/CD via GitHub Actions • Deployed on AWS
+            Built with React &amp; Chakra UI • CI/CD via GitHub Actions •
+            Deployed on AWS
           </Text>
         </Hide>
 
         <Show below="md">
-          <Stack as="footer" spacing={1} fontSize="xs" color="gray.400" textAlign="center" mt={4}>
-            <Box>Built with React & Chakra UI</Box>
+          <Stack
+            as="footer"
+            spacing={1}
+            fontSize="xs"
+            color="gray.400"
+            textAlign="center"
+            mt={4}
+          >
+            <Box>Built with React &amp; Chakra UI</Box>
             <Box>CI/CD via GitHub Actions</Box>
             <Box>Deployed on AWS</Box>
           </Stack>
         </Show>
       </Box>
 
-      <Box flex="1" display="flex" justifyContent="center" mt={{ base: 20, md: 0 }}>
+      <Box
+        flex="1"
+        display="flex"
+        justifyContent="center"
+        mt={{ base: 20, md: 0 }}
+      >
         <Image
           src={portrait}
           alt="Portrait"
@@ -116,7 +153,10 @@ export default function Hero() {
       </Box>
 
       {/* Chat Modal */}
-      <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <ChatModal
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+      />
     </Flex>
   );
 }

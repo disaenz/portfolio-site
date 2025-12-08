@@ -49,7 +49,7 @@ const projects = [
     "https://github.com/disaenz/portfolio-api/actions/workflows/lambda-deploy.yml/badge.svg",
   pipelineLink: "https://github.com/disaenz/portfolio-api/actions",
   demoLink: "https://api.daniel-saenz.com/docs"
-},,
+},
 {
   title: "React Frontend App",
   description:

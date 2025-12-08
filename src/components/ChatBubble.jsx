@@ -1,10 +1,11 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
 import { ChatIcon } from "@chakra-ui/icons";
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function ChatBubble({ onOpen }) {
   return (
-    <Tooltip label="Chat with Daniel's AI" placement="left">
+    <Tooltip label="Chat with Daniel&apos;s AI" placement="left">
       <IconButton
         icon={<ChatIcon />}
         position="fixed"
@@ -22,3 +23,7 @@ export default function ChatBubble({ onOpen }) {
     </Tooltip>
   );
 }
+
+ChatBubble.propTypes = {
+  onOpen: PropTypes.func.isRequired,
+};
