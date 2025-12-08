@@ -21,29 +21,22 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-// Custom markdown link component
+// API base URL fallback
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+
+// Reusable Markdown link with proper prop-types
 function MarkdownLink({ href, children }) {
   return (
-    <Link href={href} isExternal color="teal.200" fontWeight="bold">
+    <Link href={href} isExternal color="teal.200">
       {children}
     </Link>
   );
 }
+
 MarkdownLink.propTypes = {
-  href: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  href: PropTypes.string,
+  children: PropTypes.node,
 };
-
-// Custom markdown list item component
-function MarkdownListItem({ children }) {
-  return <li style={{ marginLeft: "18px" }}>{children}</li>;
-}
-MarkdownListItem.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-// API base URL fallback
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export default function ChatModal({ isOpen, onClose }) {
   const [messages, setMessages] = React.useState([]);
@@ -55,22 +48,19 @@ export default function ChatModal({ isOpen, onClose }) {
 
   // Initialize only once to preserve chat when closing
   React.useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([
-        {
-          id: "welcome",
-          from: "ai",
-          text:
-            "Hi 👋 / Hola 👋\n\n" +
-            "I’m Daniel’s AI — Ask me about my work experience, education, or technical skills.\n\n" +
-            "💬 **Hablo Español** — Pregúntame con confianza dentro de esos temas.",
-        },
-      ]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setMessages([
+      {
+        id: "welcome",
+        from: "ai",
+        text:
+          "Hi 👋 / Hola 👋\n\n" +
+          "I’m Daniel’s AI — Ask me about my work experience, education, or technical skills.\n\n" +
+          "💬 **Hablo Español** — Pregúntame con confianza dentro de esos temas.",
+      },
+    ]);
   }, []);
 
-  // Auto-scroll only on user message
+  // Auto-scroll only when user sends a message
   React.useEffect(() => {
     if (shouldScroll) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -82,7 +72,12 @@ export default function ChatModal({ isOpen, onClose }) {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
 
-    const userMsg = { id: `user-${Date.now()}`, from: "user", text: trimmed };
+    const userMsg = {
+      id: `user-${Date.now()}`,
+      from: "user",
+      text: trimmed,
+    };
+
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
@@ -93,10 +88,17 @@ export default function ChatModal({ isOpen, onClose }) {
         message: trimmed,
       });
 
-      const aiMsg = { id: `ai-${Date.now()}`, from: "ai", text: res.data.reply };
+      const aiMsg = {
+        id: `ai-${Date.now()}`,
+        from: "ai",
+        text: res.data.reply,
+      };
+
       setMessages((prev) => [...prev, aiMsg]);
+      // No auto-scroll here so user can keep reading where they are
     } catch (error) {
       console.error("Chat error:", error);
+
       toast({
         title: "Connection issue",
         description: "Please try again.",
@@ -127,7 +129,12 @@ export default function ChatModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", md: "2xl" }} isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={{ base: "full", md: "2xl" }}
+      isCentered
+    >
       <ModalOverlay bg="blackAlpha.700" />
 
       <ModalContent
@@ -152,10 +159,10 @@ export default function ChatModal({ isOpen, onClose }) {
         <ModalCloseButton />
 
         <ModalBody
-          pt={4}
-          pb={2}
           display="flex"
           flexDirection="column"
+          pt={4}
+          pb={2}
           overflow="hidden"
           flex="1"
         >
@@ -181,11 +188,15 @@ export default function ChatModal({ isOpen, onClose }) {
                   borderRadius="lg"
                   p={3}
                 >
-                  <Text fontSize="xs" mb={1} color="gray.300" fontWeight="semibold">
+                  <Text
+                    fontSize="xs"
+                    mb={1}
+                    color="gray.300"
+                    fontWeight="semibold"
+                  >
                     {msg.from === "user" ? "You" : "Daniel (AI)"}
                   </Text>
 
-                  {/* Markdown rendering */}
                   <Box
                     fontSize="sm"
                     sx={{
@@ -197,8 +208,12 @@ export default function ChatModal({ isOpen, onClose }) {
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        a: MarkdownLink,
-                        li: MarkdownListItem,
+                        a: ({ href, children }) => (
+                          <MarkdownLink href={href}>{children}</MarkdownLink>
+                        ),
+                        li: ({ children }) => (
+                          <li style={{ marginLeft: "18px" }}>{children}</li>
+                        ),
                       }}
                     >
                       {msg.text}
