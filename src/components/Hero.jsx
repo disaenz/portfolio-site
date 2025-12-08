@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Flex,
   Box,
@@ -129,3 +130,7 @@ export default function Hero({ onOpenChat }) {
     </Flex>
   );
 }
+
+Hero.propTypes = {
+  onOpenChat: PropTypes.func.isRequired,
+};
