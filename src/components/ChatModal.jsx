@@ -18,8 +18,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5173";
-console.log("API Base URL:", API_BASE);
+// Ensure correct protocol & fallback base URL
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 export default function ChatModal({ isOpen, onClose }) {
   const [messages, setMessages] = React.useState([]);
@@ -28,12 +28,9 @@ export default function ChatModal({ isOpen, onClose }) {
   const bottomRef = React.useRef(null);
   const toast = useToast();
 
+  // Initialize only once — keeps history when modal is closed
   React.useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  React.useEffect(() => {
-    if (isOpen) {
+    if (messages.length === 0) {
       setMessages([
         {
           id: "welcome",
@@ -44,26 +41,25 @@ export default function ChatModal({ isOpen, onClose }) {
             "💬 Hablo Español — Pregunta con confianza dentro de esos temas.",
         },
       ]);
-      setInput("");
-      setIsLoading(false);
     }
-  }, [isOpen]);
+  }, []); // Runs only once on mount
 
-  const handleClose = () => {
-    setMessages([]);
-    setInput("");
-    setIsLoading(false);
-    onClose();
-  };
+  // Auto scroll when messages update
+  React.useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
 
-    setMessages((prev) => [
-      ...prev,
-      { id: `user-${Date.now()}`, from: "user", text: trimmed },
-    ]);
+    const userMsg = {
+      id: `user-${Date.now()}`,
+      from: "user",
+      text: trimmed,
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
 
@@ -72,14 +68,13 @@ export default function ChatModal({ isOpen, onClose }) {
         message: trimmed,
       });
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `ai-${Date.now()}`,
-          from: "ai",
-          text: res.data.reply,
-        },
-      ]);
+      const aiMsg = {
+        id: `ai-${Date.now()}`,
+        from: "ai",
+        text: res.data.reply,
+      };
+
+      setMessages((prev) => [...prev, aiMsg]);
     } catch (error) {
       console.error("Chat error:", error);
 
@@ -96,8 +91,7 @@ export default function ChatModal({ isOpen, onClose }) {
         {
           id: `ai-error-${Date.now()}`,
           from: "ai",
-          text:
-            "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
+          text: "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
         },
       ]);
     } finally {
@@ -115,12 +109,11 @@ export default function ChatModal({ isOpen, onClose }) {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose} // no clearing on close
       size={{ base: "full", md: "2xl" }}
       isCentered
     >
       <ModalOverlay bg="blackAlpha.700" />
-
       <ModalContent
         bg="gray.900"
         color="white"
@@ -139,8 +132,14 @@ export default function ChatModal({ isOpen, onClose }) {
         </ModalHeader>
 
         <ModalCloseButton />
-
-        <ModalBody display="flex" flexDirection="column" pt={4} pb={2} overflow="hidden">
+        <ModalBody
+          display="flex"
+          flexDirection="column"
+          pt={4}
+          pb={2}
+          overflow="hidden"
+        >
+          {/* Chat messages */}
           <Box
             flex="1"
             overflowY="auto"
@@ -181,9 +180,7 @@ export default function ChatModal({ isOpen, onClose }) {
                   gap={2}
                 >
                   <Spinner size="sm" />
-                  <Text fontSize="sm" color="gray.200">
-                    Thinking…
-                  </Text>
+                  <Text fontSize="sm" color="gray.200">Thinking…</Text>
                 </Box>
               )}
 
@@ -191,6 +188,7 @@ export default function ChatModal({ isOpen, onClose }) {
             </Stack>
           </Box>
 
+          {/* Input */}
           <Textarea
             placeholder="Ask me anything… / Pregúntame lo que quieras…"
             value={input}
@@ -204,9 +202,14 @@ export default function ChatModal({ isOpen, onClose }) {
           />
         </ModalBody>
 
-        <ModalFooter borderTop="1px solid" borderColor="gray.700" gap={3}>
+        {/* Footer */}
+        <ModalFooter
+          borderTop="1px solid"
+          borderColor="gray.700"
+          gap={3}
+        >
           <Text fontSize="xs" color="gray.500" flex="1">
-            I only talk about my professional background — not personal info.
+            I can only talk about my professional background — not personal info.
           </Text>
           <Button
             colorScheme="teal"
