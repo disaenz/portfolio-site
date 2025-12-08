@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   Modal,
   ModalOverlay,
@@ -16,38 +18,55 @@ import {
   Textarea,
   Spinner,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 
-// Ensure correct protocol & fallback base URL
+// API base URL fallback
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+
+// Reusable Markdown link with proper prop-types
+function MarkdownLink({ href, children }) {
+  return (
+    <Link href={href} isExternal color="teal.200">
+      {children}
+    </Link>
+  );
+}
+
+MarkdownLink.propTypes = {
+  href: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export default function ChatModal({ isOpen, onClose }) {
   const [messages, setMessages] = React.useState([]);
   const [input, setInput] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [shouldScroll, setShouldScroll] = React.useState(false);
   const bottomRef = React.useRef(null);
   const toast = useToast();
 
-  // Initialize only once — keeps history when modal is closed
+  // Initialize only once to preserve chat when closing
   React.useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([
-        {
-          id: "welcome",
-          from: "ai",
-          text:
-            "Hi 👋 / Hola 👋\n\n" +
-            "I’m Daniel’s AI — Ask me about my work experience, education, or technical skills.\n\n" +
-            "💬 Hablo Español — Pregunta con confianza dentro de esos temas.",
-        },
-      ]);
-    }
-  }, []); // Runs only once on mount
+    setMessages([
+      {
+        id: "welcome",
+        from: "ai",
+        text:
+          "Hi 👋 / Hola 👋\n\n" +
+          "I’m Daniel’s AI — Ask me about my work experience, education, or technical skills.\n\n" +
+          "💬 **Hablo Español** — Pregúntame con confianza dentro de esos temas.",
+      },
+    ]);
+  }, []);
 
-  // Auto scroll when messages update
+  // Auto-scroll only when user sends a message
   React.useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (shouldScroll) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      setShouldScroll(false);
+    }
+  }, [messages, shouldScroll]);
 
   const handleSend = async () => {
     const trimmed = input.trim();
@@ -62,6 +81,7 @@ export default function ChatModal({ isOpen, onClose }) {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
+    setShouldScroll(true);
 
     try {
       const res = await axios.post(`${API_BASE}/api/ai/chat`, {
@@ -75,6 +95,7 @@ export default function ChatModal({ isOpen, onClose }) {
       };
 
       setMessages((prev) => [...prev, aiMsg]);
+      // No auto-scroll here so user can keep reading where they are
     } catch (error) {
       console.error("Chat error:", error);
 
@@ -91,7 +112,8 @@ export default function ChatModal({ isOpen, onClose }) {
         {
           id: `ai-error-${Date.now()}`,
           from: "ai",
-          text: "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
+          text:
+            "I’m sorry — can you send that again? / Lo siento — ¿puedes enviar eso otra vez?",
         },
       ]);
     } finally {
@@ -109,18 +131,21 @@ export default function ChatModal({ isOpen, onClose }) {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose} // no clearing on close
+      onClose={onClose}
       size={{ base: "full", md: "2xl" }}
       isCentered
     >
       <ModalOverlay bg="blackAlpha.700" />
+
       <ModalContent
         bg="gray.900"
         color="white"
         mx={{ base: 2, md: 0 }}
-        maxH={{ base: "100vh", md: "92vh" }}
+        height={{ base: "100vh", md: "78vh" }}
+        maxH={{ base: "100vh", md: "78vh" }}
         display="flex"
         flexDirection="column"
+        overflow="hidden"
       >
         <ModalHeader borderBottom="1px solid" borderColor="gray.700">
           <Text fontSize="lg" fontWeight="bold">
@@ -132,19 +157,21 @@ export default function ChatModal({ isOpen, onClose }) {
         </ModalHeader>
 
         <ModalCloseButton />
+
         <ModalBody
           display="flex"
           flexDirection="column"
           pt={4}
           pb={2}
           overflow="hidden"
+          flex="1"
         >
           {/* Chat messages */}
           <Box
             flex="1"
             overflowY="auto"
             mb={4}
-            pr={1}
+            pr={2}
             borderWidth="1px"
             borderColor="gray.700"
             borderRadius="lg"
@@ -161,12 +188,37 @@ export default function ChatModal({ isOpen, onClose }) {
                   borderRadius="lg"
                   p={3}
                 >
-                  <Text fontSize="xs" mb={1} color="gray.300" fontWeight="semibold">
+                  <Text
+                    fontSize="xs"
+                    mb={1}
+                    color="gray.300"
+                    fontWeight="semibold"
+                  >
                     {msg.from === "user" ? "You" : "Daniel (AI)"}
                   </Text>
-                  <Text fontSize="sm" whiteSpace="pre-wrap">
-                    {msg.text}
-                  </Text>
+
+                  <Box
+                    fontSize="sm"
+                    sx={{
+                      "p,li": { marginBottom: "4px" },
+                      a: { color: "teal.200", fontWeight: "bold" },
+                      strong: { fontWeight: "bold", color: "white" },
+                    }}
+                  >
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a: ({ href, children }) => (
+                          <MarkdownLink href={href}>{children}</MarkdownLink>
+                        ),
+                        li: ({ children }) => (
+                          <li style={{ marginLeft: "18px" }}>{children}</li>
+                        ),
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
+                  </Box>
                 </Box>
               ))}
 
@@ -180,7 +232,9 @@ export default function ChatModal({ isOpen, onClose }) {
                   gap={2}
                 >
                   <Spinner size="sm" />
-                  <Text fontSize="sm" color="gray.200">Thinking…</Text>
+                  <Text fontSize="sm" color="gray.200">
+                    Thinking…
+                  </Text>
                 </Box>
               )}
 
@@ -202,12 +256,7 @@ export default function ChatModal({ isOpen, onClose }) {
           />
         </ModalBody>
 
-        {/* Footer */}
-        <ModalFooter
-          borderTop="1px solid"
-          borderColor="gray.700"
-          gap={3}
-        >
+        <ModalFooter borderTop="1px solid" borderColor="gray.700" gap={3}>
           <Text fontSize="xs" color="gray.500" flex="1">
             I can only talk about my professional background — not personal info.
           </Text>
