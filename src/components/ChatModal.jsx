@@ -46,6 +46,8 @@ export default function ChatModal({ isOpen, onClose }) {
   const bottomRef = React.useRef(null);
   const toast = useToast();
 
+  const MAX_HISTORY = 6;
+
   // Initialize only once to preserve chat when closing
   React.useEffect(() => {
     setMessages([
@@ -78,6 +80,15 @@ export default function ChatModal({ isOpen, onClose }) {
       text: trimmed,
     };
 
+    // Prepare history for backend (exclude welcome message)
+    const historyPayload = messages
+      .filter((m) => m.id !== "welcome")
+      .slice(-MAX_HISTORY)
+      .map((m) => ({
+        role: m.from === "ai" ? "assistant" : "user",
+        content: m.text,
+      }));
+
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
@@ -86,6 +97,7 @@ export default function ChatModal({ isOpen, onClose }) {
     try {
       const res = await axios.post(`${API_BASE}/api/ai/chat`, {
         message: trimmed,
+        history: historyPayload,
       });
 
       const aiMsg = {
@@ -95,7 +107,7 @@ export default function ChatModal({ isOpen, onClose }) {
       };
 
       setMessages((prev) => [...prev, aiMsg]);
-      // No auto-scroll here so user can keep reading where they are
+      // No auto-scroll here so user can continue reading where they are
     } catch (error) {
       console.error("Chat error:", error);
 
@@ -136,7 +148,6 @@ export default function ChatModal({ isOpen, onClose }) {
       isCentered
     >
       <ModalOverlay bg="blackAlpha.700" />
-
       <ModalContent
         bg="gray.900"
         color="white"
@@ -166,7 +177,6 @@ export default function ChatModal({ isOpen, onClose }) {
           overflow="hidden"
           flex="1"
         >
-          {/* Chat messages */}
           <Box
             flex="1"
             overflowY="auto"
@@ -197,28 +207,19 @@ export default function ChatModal({ isOpen, onClose }) {
                     {msg.from === "user" ? "You" : "Daniel (AI)"}
                   </Text>
 
-                  <Box
-                    fontSize="sm"
-                    sx={{
-                      "p,li": { marginBottom: "4px" },
-                      a: { color: "teal.200", fontWeight: "bold" },
-                      strong: { fontWeight: "bold", color: "white" },
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      a: ({ href, children }) => (
+                        <MarkdownLink href={href}>{children}</MarkdownLink>
+                      ),
+                      li: ({ children }) => (
+                        <li style={{ marginLeft: "18px" }}>{children}</li>
+                      ),
                     }}
                   >
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        a: ({ href, children }) => (
-                          <MarkdownLink href={href}>{children}</MarkdownLink>
-                        ),
-                        li: ({ children }) => (
-                          <li style={{ marginLeft: "18px" }}>{children}</li>
-                        ),
-                      }}
-                    >
-                      {msg.text}
-                    </ReactMarkdown>
-                  </Box>
+                    {msg.text}
+                  </ReactMarkdown>
                 </Box>
               ))}
 
@@ -242,7 +243,6 @@ export default function ChatModal({ isOpen, onClose }) {
             </Stack>
           </Box>
 
-          {/* Input */}
           <Textarea
             placeholder="Ask me anything… / Pregúntame lo que quieras…"
             value={input}
