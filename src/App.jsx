@@ -50,8 +50,8 @@ export default function App() {
         <Footer />
       </Box>
 
-      {/* Floating Bubble only when Hero not visible */}
-      {!heroVisible && <ChatBubble onOpen={onOpen} />}
+      {/* Floating Bubble only when Hero not visible AND chat modal is closed */}
+      {!heroVisible && !isOpen && <ChatBubble onOpen={onOpen} />}
 
       {/* Global Modal */}
       <ChatModal isOpen={isOpen} onClose={onClose} />
