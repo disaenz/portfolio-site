@@ -35,6 +35,7 @@ export default function Skills() {
         "GitLab CI",
         "Jenkins",
         "AWS CodePipeline",
+        "Azure DevOps Pipelines",
         "ArgoCD",
         "Fortify",
         "Trivy",
@@ -48,7 +49,12 @@ export default function Skills() {
     },
     {
       title: "Infrastructure as Code",
-      skills: ["Terraform", "CloudFormation"],
+      skills: [
+        "Terraform",
+        "Bicep",
+        "CloudFormation",
+        "Azure Resource Manager (ARM)",
+      ],
     },
     {
       title: "Containers & Orchestration",
@@ -70,8 +76,8 @@ export default function Skills() {
     {
       title: "Cloud Platforms",
       skills: [
-        "AWS",
         "Azure",
+        "AWS",
         "Google Cloud",
         "Oracle Cloud",
         "DigitalOcean",
@@ -80,6 +86,14 @@ export default function Skills() {
     {
       title: "AWS Services",
       skills: ["EC2", "S3", "IAM", "Route 53", "Amazon Kinesis"],
+    },
+    {
+      title: "Azure Services",
+      skills: [
+        "Azure Container Apps",
+        "Azure Database for PostgreSQL",
+        "Microsoft Graph API",
+      ],
     },
     {
       title: "Relational Databases",
@@ -105,9 +119,9 @@ export default function Skills() {
       title: "Container Registries",
       skills: [
         "Amazon ECR",
+        "Azure Container Registry",
         "Docker Hub",
         "Artifactory",
-        "Azure Container Registry",
       ],
     },
     {
@@ -151,12 +165,18 @@ export default function Skills() {
         Skills
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} maxW="6xl" mx="auto">
+      <SimpleGrid
+        columns={{ base: 1, md: 2 }}
+        spacing={8}
+        maxW="6xl"
+        mx="auto"
+      >
         {skillCategories.map((cat) => (
           <Box key={cat.title}>
             <Heading as="h3" size="md" mb={4} color="white">
               {cat.title}
             </Heading>
+
             <Wrap spacing={3}>
               {cat.skills.map((skill) => (
                 <WrapItem key={skill}>

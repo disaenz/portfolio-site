@@ -20,10 +20,11 @@ const experiences = [
     date: "Jun 2024 – Present",
     bullets: [
       "Lead secure software delivery initiatives for multiple enterprise applications, improving CI/CD pipelines using GitHub Actions with integrated Fortify, SonarQube, and Trivy controls.",
-      "Partner with engineering and product teams to modernize agency applications and expand adoption of AI-driven capabilities.",
+      "Architect and develop a modern cloud-based internal application using React, FastAPI, PostgreSQL, and Microsoft Azure services to support operational modernization efforts.",
+      "Design Infrastructure as Code (IaC) solutions using Bicep and Azure DevOps pipelines to automate deployment, validation, and environment provisioning workflows.",
       "Drive improvements in operational reliability, container security, and automated deployment workflows across AWS and Azure platforms.",
-      "Architect CI/CD optimizations that accelerate delivery cycles while strengthening governance, compliance, and SDLC quality gates.",
       "Built a multilingual translator app using C# and Azure Cognitive Services that supports real-time translation and language accessibility.",
+      "Partner with engineering and product teams to modernize agency applications and expand adoption of AI-driven capabilities.",
       "Provide DevSecOps guidance and automation standards across teams to support scalability, productivity, and future modernization efforts."
     ]
   },
