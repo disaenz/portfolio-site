@@ -20,20 +20,16 @@ const images = [
   {
     url: "https://www.dropbox.com/scl/fi/lhoork9gsv8xte8hwja5u/IMG_5271.jpeg?rlkey=azqb6sr6ja97hrr72lbknzp4d&st=jz2f5jqu&raw=1",
     title: "Copilot Workshop in Arlington VA",
-    description: "Attended a hands-on Copilot workshop at Microsoft HQ in Arlington, VA, exploring the latest in Azure Copilot and GPT-powered AI development.",
-    date: "July 25, 2024"
+    description:
+      "Attended a hands-on Copilot workshop at Microsoft HQ in Arlington, VA, exploring the latest in Azure Copilot and GPT-powered AI development.",
+    date: "July 25, 2024",
   },
   {
     url: "https://www.dropbox.com/scl/fi/oenw2qobz7du4iwpylps4/IMG_5292.jpeg?rlkey=muqa9lie8i3wqx50eo8m6mhlm&st=9a41b5t6&raw=1",
     title: "GPT-Enabled Copilot Robot",
-    description: "At the Copilot workshop, I tried out this GPT-enabled demo robot that holds real-time conversations—just like talking to a person! It’s powered by Microsoft Copilot’s AI and was truly impressive.",
-    date: "July 26, 2024"
-  },
-  {
-    url: "https://www.dropbox.com/scl/fi/bl2ywc5mhjnlir834byow/IMG_6279.jpeg?rlkey=v3gkllcmknh1sg67ton4z7u2q&st=wakb45nn&raw=1",
-    title: "Microsoft Interactive Room",
-    description: "Celebrating the completion of a collaborative Copilot workshop at Microsoft HQ, joined by talented peers. The Capitol Building makes a great backdrop for a successful day of learning and innovation.",
-    date: "July 26, 2024"
+    description:
+      "At the Copilot workshop, I tried out this GPT-enabled demo robot that holds real-time conversations—just like talking to a person! It’s powered by Microsoft Copilot’s AI and was truly impressive.",
+    date: "July 26, 2024",
   }
 ];
 
@@ -53,13 +49,18 @@ export default function MediaAndHighlights() {
 
   // Paging arrows
   const goPrev = () => setPage((prev) => Math.max(0, prev - 1));
-  const goNext = () => setPage((prev) => Math.min(totalPages - 1, prev + 1));
+  const goNext = () =>
+    setPage((prev) => Math.min(totalPages - 1, prev + 1));
 
   // Modal navigation
   const openModal = (idx) => setSelected(idx);
   const closeModal = () => setSelected(null);
+
   const prevImg = () =>
-    setSelected((selected) => (selected - 1 + images.length) % images.length);
+    setSelected(
+      (selected) => (selected - 1 + images.length) % images.length
+    );
+
   const nextImg = () =>
     setSelected((selected) => (selected + 1) % images.length);
 
@@ -73,7 +74,13 @@ export default function MediaAndHighlights() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
+      <Heading
+        as="h2"
+        size="xl"
+        color="teal.300"
+        textAlign="center"
+        mb={8}
+      >
         Media and Highlights
       </Heading>
 
@@ -92,9 +99,16 @@ export default function MediaAndHighlights() {
                 colorScheme="teal"
               />
             )}
-            <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={4} flex="1">
+
+            <SimpleGrid
+              columns={{ base: 1, sm: 2 }}
+              spacing={4}
+              flex="1"
+              justifyItems="center"
+            >
               {pagedImages.map((img, idx) => {
                 const globalIdx = page * IMAGES_PER_PAGE + idx;
+
                 return (
                   <Box
                     as="button"
@@ -104,7 +118,12 @@ export default function MediaAndHighlights() {
                     overflow="hidden"
                     boxShadow="md"
                     textAlign="center"
-                    _hover={{ boxShadow: "lg", transform: "scale(1.03)" }}
+                    maxW="320px"
+                    w="100%"
+                    _hover={{
+                      boxShadow: "lg",
+                      transform: "scale(1.03)",
+                    }}
                     transition="all 0.15s"
                     onClick={() => openModal(globalIdx)}
                   >
@@ -115,13 +134,21 @@ export default function MediaAndHighlights() {
                       w="100%"
                       h="180px"
                     />
-                    <Text mt={2} mb={2} color="teal.300" fontSize="sm" px={2}>
+
+                    <Text
+                      mt={2}
+                      mb={2}
+                      color="teal.300"
+                      fontSize="sm"
+                      px={2}
+                    >
                       {img.title}
                     </Text>
                   </Box>
                 );
               })}
             </SimpleGrid>
+
             {totalPages > 1 && (
               <IconButton
                 icon={<ArrowForwardIcon />}
@@ -134,6 +161,7 @@ export default function MediaAndHighlights() {
               />
             )}
           </HStack>
+
           {totalPages > 1 && (
             <Text color="gray.400" textAlign="center" fontSize="xs">
               Page {page + 1} of {totalPages}
@@ -142,19 +170,26 @@ export default function MediaAndHighlights() {
         </Box>
 
         {/* Lightbox Modal */}
-        <Modal isOpen={selected !== null} onClose={closeModal} isCentered size="xl">
+        <Modal
+          isOpen={selected !== null}
+          onClose={closeModal}
+          isCentered
+          size="xl"
+        >
           <ModalOverlay />
+
           <ModalContent
             bg="gray.900"
             maxW={{ base: "85vw", md: "600px" }}
           >
-            <ModalCloseButton 
-              color="white" 
+            <ModalCloseButton
+              color="white"
               bg="rgba(0,0,0,0.7)"
               _hover={{
-                bg: "gray.800"
+                bg: "gray.800",
               }}
-              />
+            />
+
             <ModalBody
               p={2}
               display="flex"
@@ -164,7 +199,12 @@ export default function MediaAndHighlights() {
             >
               {selected !== null && (
                 <>
-                  <Box display="flex" alignItems="center" justifyContent="center" w="100%">
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    w="100%"
+                  >
                     <IconButton
                       aria-label="Prev"
                       icon={<ArrowBackIcon />}
@@ -174,6 +214,7 @@ export default function MediaAndHighlights() {
                       mr={2}
                       disabled={images.length <= 1}
                     />
+
                     <Image
                       src={images[selected].url}
                       alt={images[selected].title}
@@ -183,6 +224,7 @@ export default function MediaAndHighlights() {
                       borderRadius="lg"
                       shadow="lg"
                     />
+
                     <IconButton
                       aria-label="Next"
                       icon={<ArrowForwardIcon />}
@@ -193,14 +235,33 @@ export default function MediaAndHighlights() {
                       disabled={images.length <= 1}
                     />
                   </Box>
-                  <Text mt={3} color="teal.300" fontWeight="bold" fontSize="lg" textAlign="center">
+
+                  <Text
+                    mt={3}
+                    color="teal.300"
+                    fontWeight="bold"
+                    fontSize="lg"
+                    textAlign="center"
+                  >
                     {images[selected].title}
                   </Text>
-                  <Text mt={1} color="gray.200" fontSize="sm" textAlign="center">
+
+                  <Text
+                    mt={1}
+                    color="gray.200"
+                    fontSize="sm"
+                    textAlign="center"
+                  >
                     {images[selected].description}
                   </Text>
+
                   {images[selected].date && (
-                    <Text mt={1} color="gray.400" fontSize="xs" textAlign="center">
+                    <Text
+                      mt={1}
+                      color="gray.400"
+                      fontSize="xs"
+                      textAlign="center"
+                    >
                       {images[selected].date}
                     </Text>
                   )}
@@ -211,7 +272,14 @@ export default function MediaAndHighlights() {
         </Modal>
 
         {/* ---- Interview Video ---- */}
-        <Box w="100%" maxW="640px" aspectRatio={16 / 9} borderRadius="lg" overflow="hidden" boxShadow="lg">
+        <Box
+          w="100%"
+          maxW="640px"
+          aspectRatio={16 / 9}
+          borderRadius="lg"
+          overflow="hidden"
+          boxShadow="lg"
+        >
           <iframe
             width="100%"
             height="100%"
@@ -219,7 +287,11 @@ export default function MediaAndHighlights() {
             title="Daniel Saenz Interview"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            style={{ display: "block", width: "100%", height: "100%" }}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+            }}
           />
         </Box>
 
@@ -234,7 +306,8 @@ export default function MediaAndHighlights() {
           <Text as="span" fontWeight="bold" color="teal.300">
             “The Hackers&apos; Corner”
           </Text>{" "}
-          at EPCC, where I share my DevOps journey, discuss cloud security, and offer advice for those interested in tech careers.
+          at EPCC, where I share my DevOps journey, discuss cloud security, and
+          offer advice for those interested in tech careers.
         </Text>
       </VStack>
     </Box>
