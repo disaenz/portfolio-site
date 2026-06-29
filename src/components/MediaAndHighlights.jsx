@@ -15,6 +15,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 const images = [
   {
@@ -74,19 +75,21 @@ export default function MediaAndHighlights() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading
-        as="h2"
-        size="xl"
-        color="teal.300"
-        textAlign="center"
-        mb={8}
-      >
-        Media and Highlights
-      </Heading>
+      <ScrollReveal>
+        <Heading
+          as="h2"
+          size="xl"
+          color="teal.300"
+          textAlign="center"
+          mb={8}
+        >
+          Media and Highlights
+        </Heading>
+      </ScrollReveal>
 
       <VStack spacing={10} align="center" maxW="3xl" mx="auto">
         {/* --- Gallery Grid --- */}
-        <Box w="100%" maxW="800px">
+        <ScrollReveal w="100%" maxW="800px" distance={28}>
           <HStack spacing={2} justify="center" mb={2}>
             {totalPages > 1 && (
               <IconButton
@@ -167,7 +170,7 @@ export default function MediaAndHighlights() {
               Page {page + 1} of {totalPages}
             </Text>
           )}
-        </Box>
+        </ScrollReveal>
 
         {/* Lightbox Modal */}
         <Modal
@@ -272,43 +275,46 @@ export default function MediaAndHighlights() {
         </Modal>
 
         {/* ---- Interview Video ---- */}
-        <Box
-          w="100%"
-          maxW="640px"
-          aspectRatio={16 / 9}
-          borderRadius="lg"
-          overflow="hidden"
-          boxShadow="lg"
-        >
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/ljZLRukhIHQ?si=6DRklrtFUTFh_TzJ"
-            title="Daniel Saenz Interview"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{
-              display: "block",
-              width: "100%",
-              height: "100%",
-            }}
-          />
-        </Box>
+        <ScrollReveal w="100%" maxW="640px" delay={0.08} distance={28}>
+          <Box
+            w="100%"
+            aspectRatio={16 / 9}
+            borderRadius="lg"
+            overflow="hidden"
+            boxShadow="lg"
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/ljZLRukhIHQ?si=6DRklrtFUTFh_TzJ"
+              title="Daniel Saenz Interview"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </Box>
+        </ScrollReveal>
 
-        <Text
-          fontSize="md"
-          color="gray.200"
-          fontStyle="italic"
-          textAlign="center"
-          maxW="600px"
-        >
-          My interview on{" "}
-          <Text as="span" fontWeight="bold" color="teal.300">
-            “The Hackers&apos; Corner”
-          </Text>{" "}
-          at EPCC, where I share my DevOps journey, discuss cloud security, and
-          offer advice for those interested in tech careers.
-        </Text>
+        <ScrollReveal delay={0.12} distance={20}>
+          <Text
+            fontSize="md"
+            color="gray.200"
+            fontStyle="italic"
+            textAlign="center"
+            maxW="600px"
+          >
+            My interview on{" "}
+            <Text as="span" fontWeight="bold" color="teal.300">
+              “The Hackers&apos; Corner”
+            </Text>{" "}
+            at EPCC, where I share my DevOps journey, discuss cloud security, and
+            offer advice for those interested in tech careers.
+          </Text>
+        </ScrollReveal>
       </VStack>
     </Box>
   );

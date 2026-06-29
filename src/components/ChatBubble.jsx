@@ -8,6 +8,7 @@ export default function ChatBubble({ onOpen }) {
     <Tooltip label="Chat with Daniel&apos;s AI" placement="left">
       <IconButton
         icon={<ChatIcon />}
+        aria-label="Chat with Daniel's AI"
         position="fixed"
         bottom="20px"
         right="20px"

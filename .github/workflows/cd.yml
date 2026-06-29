@@ -1,4 +1,4 @@
-name: 🚀 CI/CD Pipeline for Portfolio
+name: 🚀 Deploy Portfolio
 
 permissions:
   contents: read
@@ -6,17 +6,14 @@ permissions:
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
 
 concurrency:
   group: portfolio-deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  ci:
-    name: 🛠 CI (Lint & Build)
+  build:
+    name: Build Site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,10 +28,7 @@ jobs:
           echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
           echo "Created .env with API Base URL"
 
-      - name: 🛡️ Static code analysis (ESLint)
-        run: npm run lint
-
-      - name: 🔨 Build site
+      - name: Build site
         run: npm run build
 
       - name: Upload build artifact
@@ -45,9 +39,8 @@ jobs:
 
   cd:
     name: 🚀 CD (Deploy to S3 + CloudFront)
-    needs: ci
+    needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     env:
       DOMAIN: "daniel-saenz.com"
     steps:

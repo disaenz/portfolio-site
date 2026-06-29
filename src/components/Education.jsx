@@ -9,6 +9,7 @@ import {
   VStack
 } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 // Education and certifications data
 const education = [
@@ -43,13 +44,15 @@ export default function Education() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
-        Education & Certifications
-      </Heading>
+      <ScrollReveal>
+        <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
+          Education & Certifications
+        </Heading>
+      </ScrollReveal>
 
       <VStack spacing={12} maxW="4xl" mx="auto" align="stretch">
         {/* Education List */}
-        <Box>
+        <ScrollReveal direction="left">
           <Heading as="h3" size="lg" mb={4} color="gray.700">
             Education
           </Heading>
@@ -64,10 +67,10 @@ export default function Education() {
               </ListItem>
             ))}
           </List>
-        </Box>
+        </ScrollReveal>
 
         {/* Certifications List */}
-        <Box>
+        <ScrollReveal direction="right" delay={0.08}>
           <Heading as="h3" size="lg" mb={4} color="gray.700">
             Certifications
           </Heading>
@@ -81,7 +84,7 @@ export default function Education() {
               </ListItem>
             ))}
           </List>
-        </Box>
+        </ScrollReveal>
       </VStack>
     </Box>
   );

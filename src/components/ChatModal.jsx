@@ -145,20 +145,30 @@ export default function ChatModal({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       size={{ base: "full", md: "2xl" }}
-      isCentered
+      isCentered={{ base: false, md: true }}
+      scrollBehavior="inside"
     >
       <ModalOverlay bg="blackAlpha.700" />
       <ModalContent
         bg="gray.900"
         color="white"
-        mx={{ base: 2, md: 0 }}
-        height={{ base: "100vh", md: "78vh" }}
-        maxH={{ base: "100vh", md: "78vh" }}
+        mx={{ base: 0, md: 0 }}
+        my={{ base: 0, md: "auto" }}
+        height={{ base: "100dvh", md: "78vh" }}
+        maxH={{ base: "100dvh", md: "78vh" }}
+        borderRadius={{ base: 0, md: "md" }}
         display="flex"
         flexDirection="column"
         overflow="hidden"
+        pb={{ base: "env(safe-area-inset-bottom)", md: 0 }}
       >
-        <ModalHeader borderBottom="1px solid" borderColor="gray.700">
+        <ModalHeader
+          borderBottom="1px solid"
+          borderColor="gray.700"
+          pt={{ base: "calc(env(safe-area-inset-top) + 0.85rem)", md: 4 }}
+          pr={{ base: 14, md: 12 }}
+          pb={{ base: 3, md: 4 }}
+        >
           <Text fontSize="lg" fontWeight="bold">
             Ask Daniel&apos;s AI Assistant
           </Text>
@@ -167,26 +177,37 @@ export default function ChatModal({ isOpen, onClose }) {
           </Text>
         </ModalHeader>
 
-        <ModalCloseButton />
+        <ModalCloseButton
+          top={{ base: "calc(env(safe-area-inset-top) + 0.65rem)", md: 2 }}
+          right={{ base: 3, md: 3 }}
+          boxSize={{ base: 11, md: 8 }}
+          borderRadius="full"
+          bg={{ base: "whiteAlpha.200", md: "transparent" }}
+          _hover={{ bg: "whiteAlpha.300" }}
+          _active={{ bg: "whiteAlpha.400" }}
+        />
 
         <ModalBody
           display="flex"
           flexDirection="column"
-          pt={4}
+          pt={{ base: 3, md: 4 }}
           pb={2}
+          px={{ base: 3, md: 6 }}
           overflow="hidden"
           flex="1"
+          minH={0}
         >
           <Box
             flex="1"
             overflowY="auto"
-            mb={4}
-            pr={2}
+            mb={3}
+            pr={{ base: 1, md: 2 }}
             borderWidth="1px"
             borderColor="gray.700"
             borderRadius="lg"
-            p={3}
+            p={{ base: 2.5, md: 3 }}
             bg="gray.800"
+            minH={0}
           >
             <Stack spacing={3}>
               {messages.map((msg) => (
@@ -248,7 +269,7 @@ export default function ChatModal({ isOpen, onClose }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            rows={3}
+            rows={2}
             resize="none"
             bg="gray.800"
             borderColor="gray.700"
@@ -256,8 +277,16 @@ export default function ChatModal({ isOpen, onClose }) {
           />
         </ModalBody>
 
-        <ModalFooter borderTop="1px solid" borderColor="gray.700" gap={3}>
-          <Text fontSize="xs" color="gray.500" flex="1">
+        <ModalFooter
+          borderTop="1px solid"
+          borderColor="gray.700"
+          gap={{ base: 2, md: 3 }}
+          px={{ base: 3, md: 6 }}
+          py={{ base: 3, md: 4 }}
+          alignItems={{ base: "stretch", sm: "center" }}
+          flexDirection={{ base: "column", sm: "row" }}
+        >
+          <Text fontSize="xs" color="gray.500" flex="1" lineHeight="short">
             I can only talk about my professional background — not personal info.
           </Text>
           <Button
@@ -266,6 +295,7 @@ export default function ChatModal({ isOpen, onClose }) {
             isLoading={isLoading}
             loadingText="Sending"
             isDisabled={!input.trim()}
+            w={{ base: "100%", sm: "auto" }}
           >
             Send
           </Button>
