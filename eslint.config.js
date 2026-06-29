@@ -14,6 +14,7 @@ export default defineConfig([
     ignores: [
       "README.md",
       "dist/**",
+      "coverage/**",
       "node_modules/**"
     ],
   },

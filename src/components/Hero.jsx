@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import portrait from "../assets/portrait.png";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 export default function Hero({ onOpenChat }) {
   return (
@@ -31,10 +32,12 @@ export default function Hero({ onOpenChat }) {
       px={{ base: 4, md: 20 }}
     >
       {/* Text side */}
-      <Box
+      <ScrollReveal
         flex="1"
         textAlign={{ base: "center", md: "left" }}
         mt={{ base: 8, md: 0 }}
+        direction="left"
+        duration={0.8}
       >
         <Heading as="h1" size="2xl" mb={4}>
           Hi There,
@@ -112,10 +115,18 @@ export default function Hero({ onOpenChat }) {
             <Box>Deployed on AWS</Box>
           </Stack>
         </Show>
-      </Box>
+      </ScrollReveal>
 
       {/* Portrait */}
-      <Box flex="1" display="flex" justifyContent="center" mt={{ base: 20, md: 0 }}>
+      <ScrollReveal
+        flex="1"
+        display="flex"
+        justifyContent="center"
+        mt={{ base: 20, md: 0 }}
+        direction="right"
+        delay={0.12}
+        duration={0.8}
+      >
         <Image
           src={portrait}
           alt="Portrait"
@@ -126,7 +137,7 @@ export default function Hero({ onOpenChat }) {
           borderColor="teal.300"
           ml={{ base: 0, md: 16 }}
         />
-      </Box>
+      </ScrollReveal>
     </Flex>
   );
 }

@@ -7,6 +7,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 export default function Skills() {
   const skillCategories = [
@@ -41,6 +42,21 @@ export default function Skills() {
         "Trivy",
         "SonarQube",
         "GitOps",
+      ],
+    },
+    {
+      title: "Testing & Quality",
+      skills: [
+        "Vitest",
+        "React Testing Library",
+        "Jest",
+        "JSDOM",
+        "Pytest",
+        "unittest",
+        "JUnit",
+        "xUnit",
+        "ESLint",
+        "Coverage Reporting",
       ],
     },
     {
@@ -161,9 +177,11 @@ export default function Skills() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
-        Skills
-      </Heading>
+      <ScrollReveal>
+        <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
+          Skills
+        </Heading>
+      </ScrollReveal>
 
       <SimpleGrid
         columns={{ base: 1, md: 2 }}
@@ -171,22 +189,24 @@ export default function Skills() {
         maxW="6xl"
         mx="auto"
       >
-        {skillCategories.map((cat) => (
-          <Box key={cat.title}>
-            <Heading as="h3" size="md" mb={4} color="white">
-              {cat.title}
-            </Heading>
+        {skillCategories.map((cat, index) => (
+          <ScrollReveal key={cat.title} delay={(index % 4) * 0.04} distance={24}>
+            <Box>
+              <Heading as="h3" size="md" mb={4} color="white">
+                {cat.title}
+              </Heading>
 
-            <Wrap spacing={3}>
-              {cat.skills.map((skill) => (
-                <WrapItem key={skill}>
-                  <Tag size="md" variant="solid" colorScheme="teal">
-                    {skill}
-                  </Tag>
-                </WrapItem>
-              ))}
-            </Wrap>
-          </Box>
+              <Wrap spacing={3}>
+                {cat.skills.map((skill) => (
+                  <WrapItem key={skill}>
+                    <Tag size="md" variant="solid" colorScheme="teal">
+                      {skill}
+                    </Tag>
+                  </WrapItem>
+                ))}
+              </Wrap>
+            </Box>
+          </ScrollReveal>
         ))}
       </SimpleGrid>
     </Box>

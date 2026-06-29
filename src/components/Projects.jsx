@@ -16,6 +16,7 @@ import chakraImage from "../assets/chakra.png";
 import grantApiImage from "../assets/microservices.png";
 import reactImage from "../assets/react.png";
 import devsecopsImage from "../assets/devsecops.png";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 const projects = [
   {
@@ -35,7 +36,7 @@ const projects = [
     repoLink: "https://github.com/disaenz/portfolio-site",
     img: chakraImage,
     pipelineBadge:
-      "https://github.com/disaenz/portfolio-site/actions/workflows/deploy.yml/badge.svg",
+      "https://github.com/disaenz/portfolio-site/actions/workflows/cd.yml/badge.svg",
     pipelineLink: "https://github.com/disaenz/portfolio-site/actions"
   },
   {
@@ -82,95 +83,99 @@ export default function Projects() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading
-        as="h2"
-        size="xl"
-        color="teal.300"
-        textAlign="center"
-        mb={6}
-      >
-        Projects
-      </Heading>
+      <ScrollReveal>
+        <Heading
+          as="h2"
+          size="xl"
+          color="teal.300"
+          textAlign="center"
+          mb={6}
+        >
+          Projects
+        </Heading>
+      </ScrollReveal>
 
       <SimpleGrid
         columns={{ base: 1, md: 2, lg: 3 }}
         spacing={8}
         px={{ base: 0, md: 8 }}
       >
-        {projects.map((p) => (
-          <Box
-            key={p.title}
-            bg="white"
-            rounded="lg"
-            overflow="hidden"
-            shadow="md"
-            _hover={{ shadow: "lg" }}
-            transition="box-shadow 0.2s"
-          >
-            {/* Card image → repo */}
-            <Link href={p.repoLink} isExternal _hover={{ textDecoration: "none" }}>
-              <Image
-                src={p.img}
-                alt={p.title}
-                objectFit="cover"
-                h="200px"
-                w="100%"
-                cursor="pointer"
-              />
-            </Link>
+        {projects.map((p, index) => (
+          <ScrollReveal key={p.title} delay={(index % 3) * 0.06} distance={30}>
+            <Box
+              bg="white"
+              rounded="lg"
+              overflow="hidden"
+              shadow="md"
+              _hover={{ shadow: "lg", transform: "translateY(-4px)" }}
+              transition="box-shadow 0.2s, transform 0.2s"
+              h="100%"
+            >
+              {/* Card image → repo */}
+              <Link href={p.repoLink} isExternal _hover={{ textDecoration: "none" }}>
+                <Image
+                  src={p.img}
+                  alt={p.title}
+                  objectFit="cover"
+                  h="200px"
+                  w="100%"
+                  cursor="pointer"
+                />
+              </Link>
 
-            <Box pt={0} px={6} pb={6}>
-              <Heading as="h3" size="sm" mb={2} color="teal.600" mt={4}>
-                {p.title}
-              </Heading>
-              <Text mb={4} color="gray.600" fontSize={p.fontSize} fontWeight="medium">
-                {p.description}
-              </Text>
-            
-            {p.pipelineBadge && p.pipelineLink && (
-            <Link href={p.pipelineLink} isExternal>
-              <Image
-                src={p.pipelineBadge}
-                alt={`${p.title} pipeline status`}
-                h="20px"
-              />
-            </Link>
-          )}
-            <HStack mt={4} spacing={2} align="center">
-              {p.demoLink && (
+              <Box pt={0} px={6} pb={6}>
+                <Heading as="h3" size="sm" mb={2} color="teal.600" mt={4}>
+                  {p.title}
+                </Heading>
+                <Text mb={4} color="gray.600" fontSize={p.fontSize} fontWeight="medium">
+                  {p.description}
+                </Text>
+
+                {p.pipelineBadge && p.pipelineLink && (
+                  <Link href={p.pipelineLink} isExternal>
+                    <Image
+                      src={p.pipelineBadge}
+                      alt={`${p.title} pipeline status`}
+                      h="20px"
+                    />
+                  </Link>
+                )}
+                <HStack mt={4} spacing={2} align="center">
+                  {p.demoLink && (
+                    <Link
+                      href={p.demoLink}
+                      isExternal
+                      color="teal.500"
+                      fontWeight="bold"
+                      fontSize="sm"
+                    >
+                      View Demo
+                    </Link>
+                  )}
+                  {p.pipelineLink && (
+                  <Link
+                    href={p.pipelineLink}
+                    isExternal
+                    color="teal.500"
+                    fontWeight="bold"
+                    fontSize="sm"
+                  >
+                    View Pipeline
+                  </Link>
+                )}
                 <Link
-                  href={p.demoLink}
-                  isExternal
+                  href={p.repoLink}
                   color="teal.500"
                   fontWeight="bold"
                   fontSize="sm"
+                  isExternal
                 >
-                  View Demo
+                  Learn More
                 </Link>
-              )}
-              {p.pipelineLink && (
-              <Link
-                href={p.pipelineLink}
-                isExternal
-                color="teal.500"
-                fontWeight="bold"
-                fontSize="sm"
-              >
-                View Pipeline
-              </Link>
-            )}
-              <Link
-                href={p.repoLink}
-                color="teal.500"
-                fontWeight="bold"
-                fontSize="sm"
-                isExternal
-              >
-                Learn More
-              </Link>
-              </HStack>
+                </HStack>
+              </Box>
             </Box>
-          </Box>
+          </ScrollReveal>
         ))}
       </SimpleGrid>
     </Box>

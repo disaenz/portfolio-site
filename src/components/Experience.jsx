@@ -11,6 +11,7 @@ import {
   ListIcon
 } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 // Extracted from resume
 const experiences = [
@@ -93,29 +94,38 @@ export default function Experience() {
       py={16}
       px={{ base: 4, md: 8 }}
     >
-      <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
-        Experience
-      </Heading>
+      <ScrollReveal>
+        <Heading as="h2" size="xl" color="teal.300" textAlign="center" mb={8}>
+          Experience
+        </Heading>
+      </ScrollReveal>
 
       <VStack spacing={8} maxW="6xl" mx="auto" align="stretch">
         {experiences.map((exp, idx) => (
-          <Box key={idx} p={6} bg="gray.800" rounded="md" shadow="md">
-            <Stack direction={{ base: "column", md: "row" }} justify="space-between" align="flex-start">
-              <Box>
-                <Heading as="h3" size="md">{exp.title}</Heading>
-                <Text color="gray.400">{exp.company}</Text>
-              </Box>
-              <Badge colorScheme="teal" alignSelf="start">{exp.date}</Badge>
-            </Stack>
-            <List spacing={2} mt={4}>
-              {exp.bullets.map((b, i) => (
-                <ListItem key={i}>
-                  <ListIcon as={CheckCircleIcon} color="teal.300" />
-                  {b}
-                </ListItem>
-              ))}
-            </List>
-          </Box>
+          <ScrollReveal
+            key={exp.company}
+            delay={(idx % 3) * 0.05}
+            direction={idx % 2 === 0 ? "left" : "right"}
+            distance={28}
+          >
+            <Box p={6} bg="gray.800" rounded="md" shadow="md">
+              <Stack direction={{ base: "column", md: "row" }} justify="space-between" align="flex-start">
+                <Box>
+                  <Heading as="h3" size="md">{exp.title}</Heading>
+                  <Text color="gray.400">{exp.company}</Text>
+                </Box>
+                <Badge colorScheme="teal" alignSelf="start">{exp.date}</Badge>
+              </Stack>
+              <List spacing={2} mt={4}>
+                {exp.bullets.map((b, i) => (
+                  <ListItem key={i}>
+                    <ListIcon as={CheckCircleIcon} color="teal.300" />
+                    {b}
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </ScrollReveal>
         ))}
       </VStack>
     </Box>
