@@ -73,7 +73,7 @@ jobs:
         run: |
           echo "🔍 Looking up CloudFront distribution for $DOMAIN…"
           DISTRIBUTION_ID=$(aws cloudfront list-distributions \
-            --query "DistributionList.Items[?contains(Aliases.Items, \`${DOMAIN}\`)].Id | [0]" \
+            --query "DistributionList.Items[?Aliases.Quantity > \`0\` && contains(Aliases.Items, \`${DOMAIN}\`)].Id | [0]" \
             --output text)
           if [[ -z "$DISTRIBUTION_ID" || "$DISTRIBUTION_ID" == "None" ]]; then
             echo "❌ Error: could not find a CloudFront distribution for $DOMAIN" >&2
