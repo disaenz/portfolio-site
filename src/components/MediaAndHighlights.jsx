@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Heading,
@@ -16,6 +16,39 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import ScrollReveal from "./ScrollReveal.jsx";
+import {
+  trackMediaLightboxOpened,
+  trackVideoPlay,
+} from "../services/analytics.js";
+
+const INTERVIEW_VIDEO_ID = "ljZLRukhIHQ";
+const INTERVIEW_VIDEO_TITLE = "Daniel Saenz Interview";
+const YOUTUBE_IFRAME_API_SRC = "https://www.youtube.com/iframe_api";
+
+let youtubeIframeApiPromise;
+
+function loadYouTubeIframeApi() {
+  if (window.YT?.Player) return Promise.resolve(window.YT);
+
+  if (!youtubeIframeApiPromise) {
+    youtubeIframeApiPromise = new Promise((resolve) => {
+      const previousReady = window.onYouTubeIframeAPIReady;
+
+      window.onYouTubeIframeAPIReady = () => {
+        previousReady?.();
+        resolve(window.YT);
+      };
+
+      if (!document.querySelector(`script[src="${YOUTUBE_IFRAME_API_SRC}"]`)) {
+        const script = document.createElement("script");
+        script.src = YOUTUBE_IFRAME_API_SRC;
+        document.head.appendChild(script);
+      }
+    });
+  }
+
+  return youtubeIframeApiPromise;
+}
 
 const images = [
   {
@@ -39,6 +72,8 @@ const IMAGES_PER_PAGE = 3;
 export default function MediaAndHighlights() {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState(null);
+  const interviewVideoRef = useRef(null);
+  const hasTrackedInterviewPlay = useRef(false);
 
   const totalPages = Math.ceil(images.length / IMAGES_PER_PAGE);
 
@@ -54,7 +89,10 @@ export default function MediaAndHighlights() {
     setPage((prev) => Math.min(totalPages - 1, prev + 1));
 
   // Modal navigation
-  const openModal = (idx) => setSelected(idx);
+  const openModal = (idx) => {
+    trackMediaLightboxOpened(images[idx].title);
+    setSelected(idx);
+  };
   const closeModal = () => setSelected(null);
 
   const prevImg = () =>
@@ -64,6 +102,34 @@ export default function MediaAndHighlights() {
 
   const nextImg = () =>
     setSelected((selected) => (selected + 1) % images.length);
+
+  useEffect(() => {
+    let isMounted = true;
+    let player;
+
+    loadYouTubeIframeApi().then((YT) => {
+      if (!isMounted || !interviewVideoRef.current) return;
+
+      player = new YT.Player(interviewVideoRef.current, {
+        events: {
+          onStateChange: (event) => {
+            if (
+              event.data === YT.PlayerState.PLAYING &&
+              !hasTrackedInterviewPlay.current
+            ) {
+              hasTrackedInterviewPlay.current = true;
+              trackVideoPlay("Daniel Saenz Interview", "youtube", INTERVIEW_VIDEO_ID);
+            }
+          },
+        },
+      });
+    });
+
+    return () => {
+      isMounted = false;
+      player?.destroy?.();
+    };
+  }, []);
 
   return (
     <Box
@@ -284,10 +350,11 @@ export default function MediaAndHighlights() {
             boxShadow="lg"
           >
             <iframe
+              ref={interviewVideoRef}
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/ljZLRukhIHQ?si=6DRklrtFUTFh_TzJ"
-              title="Daniel Saenz Interview"
+              src={`https://www.youtube.com/embed/${INTERVIEW_VIDEO_ID}?si=6DRklrtFUTFh_TzJ&enablejsapi=1`}
+              title={INTERVIEW_VIDEO_TITLE}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{

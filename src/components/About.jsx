@@ -1,6 +1,10 @@
 import React from "react";
 import { Box, Heading, Text, Link } from "@chakra-ui/react";
 import ScrollReveal from "./ScrollReveal.jsx";
+import { trackResumeClick } from "../services/analytics.js";
+
+const RESUME_URL =
+  "https://www.dropbox.com/scl/fi/vr6msczyp321femehlrcg/Daniel-Saenz-Resume.pdf?rlkey=y2zh8uhylud8zgp6dt5jiund6&st=ai7knzyg&dl=0";
 
 export default function About() {
   return (
@@ -28,10 +32,11 @@ export default function About() {
       <ScrollReveal delay={0.18} distance={20}>
         <Box mt={8} textAlign="center">
           <Link
-            href="https://www.dropbox.com/scl/fi/vr6msczyp321femehlrcg/Daniel-Saenz-Resume.pdf?rlkey=y2zh8uhylud8zgp6dt5jiund6&st=ai7knzyg&dl=0"
+            href={RESUME_URL}
             isExternal
             color="teal.500"
             fontWeight="bold"
+            onClick={() => trackResumeClick(RESUME_URL)}
           >
             Download My Resume
           </Link>
