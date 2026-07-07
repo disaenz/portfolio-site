@@ -15,6 +15,15 @@ import {
 
 import portrait from "../assets/portrait.png";
 import ScrollReveal from "./ScrollReveal.jsx";
+import {
+  trackChatOpened,
+  trackContactLinkClick,
+  trackSocialLinkClick,
+} from "../services/analytics.js";
+
+const GITHUB_URL = "https://github.com/disaenz";
+const LINKEDIN_URL = "https://www.linkedin.com/in/daniel-saenz-devops";
+const EMAIL_URL = "mailto:disaenz2@gmail.com";
 
 export default function Hero({ onOpenChat }) {
   return (
@@ -71,7 +80,10 @@ export default function Hero({ onOpenChat }) {
             size="lg"
             borderColor="teal.300"
             color="teal.300"
-            onClick={onOpenChat}
+            onClick={() => {
+              trackChatOpened("hero_cta");
+              onOpenChat();
+            }}
           >
             💬 Ask the AI
           </Button>
@@ -83,13 +95,19 @@ export default function Hero({ onOpenChat }) {
           justify={{ base: "center", md: "flex-start" }}
           mt={6}
         >
-          <Link href="https://github.com/disaenz" isExternal fontWeight="bold">
+          <Link
+            href={GITHUB_URL}
+            isExternal
+            fontWeight="bold"
+            onClick={() => trackSocialLinkClick("github", GITHUB_URL)}
+          >
             GitHub
           </Link>
           <Link
-            href="https://www.linkedin.com/in/daniel-saenz-devops"
+            href={LINKEDIN_URL}
             isExternal
             fontWeight="bold"
+            onClick={() => trackSocialLinkClick("linkedin", LINKEDIN_URL)}
           >
             LinkedIn
           </Link>
@@ -99,7 +117,12 @@ export default function Hero({ onOpenChat }) {
           <Box as="span" color="teal.300" fontWeight="bold">
             Email:
           </Box>{" "}
-          <Link href="mailto:disaenz2@gmail.com">disaenz2@gmail.com</Link>
+          <Link
+            href={EMAIL_URL}
+            onClick={() => trackContactLinkClick("email", EMAIL_URL)}
+          >
+            disaenz2@gmail.com
+          </Link>
         </Text>
 
         <Hide below="md">

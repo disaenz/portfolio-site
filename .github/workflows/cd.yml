@@ -23,10 +23,11 @@ jobs:
         run: npm ci
 
       # Inject .env file only for build
-      - name: Inject API environment variable
+      - name: Inject build environment variables
         run: |
           echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
-          echo "Created .env with API Base URL"
+          echo "VITE_GA_MEASUREMENT_ID=${{ vars.VITE_GA_MEASUREMENT_ID }}" >> .env
+          echo "Created .env with build environment variables"
 
       - name: Build site
         run: npm run build

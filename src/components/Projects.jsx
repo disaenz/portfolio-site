@@ -17,6 +17,7 @@ import grantApiImage from "../assets/microservices.png";
 import reactImage from "../assets/react.png";
 import devsecopsImage from "../assets/devsecops.png";
 import ScrollReveal from "./ScrollReveal.jsx";
+import { trackProjectLinkClick } from "../services/analytics.js";
 
 const projects = [
   {
@@ -112,7 +113,12 @@ export default function Projects() {
               h="100%"
             >
               {/* Card image → repo */}
-              <Link href={p.repoLink} isExternal _hover={{ textDecoration: "none" }}>
+              <Link
+                href={p.repoLink}
+                isExternal
+                _hover={{ textDecoration: "none" }}
+                onClick={() => trackProjectLinkClick(p.title, "image_repo", p.repoLink)}
+              >
                 <Image
                   src={p.img}
                   alt={p.title}
@@ -132,7 +138,11 @@ export default function Projects() {
                 </Text>
 
                 {p.pipelineBadge && p.pipelineLink && (
-                  <Link href={p.pipelineLink} isExternal>
+                  <Link
+                    href={p.pipelineLink}
+                    isExternal
+                    onClick={() => trackProjectLinkClick(p.title, "pipeline_badge", p.pipelineLink)}
+                  >
                     <Image
                       src={p.pipelineBadge}
                       alt={`${p.title} pipeline status`}
@@ -148,6 +158,7 @@ export default function Projects() {
                       color="teal.500"
                       fontWeight="bold"
                       fontSize="sm"
+                      onClick={() => trackProjectLinkClick(p.title, "demo", p.demoLink)}
                     >
                       View Demo
                     </Link>
@@ -159,6 +170,7 @@ export default function Projects() {
                     color="teal.500"
                     fontWeight="bold"
                     fontSize="sm"
+                    onClick={() => trackProjectLinkClick(p.title, "pipeline", p.pipelineLink)}
                   >
                     View Pipeline
                   </Link>
@@ -169,6 +181,7 @@ export default function Projects() {
                   fontWeight="bold"
                   fontSize="sm"
                   isExternal
+                  onClick={() => trackProjectLinkClick(p.title, "repo", p.repoLink)}
                 >
                   Learn More
                 </Link>

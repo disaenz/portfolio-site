@@ -51,7 +51,18 @@ The site is built with React and Chakra UI, deployed to AWS S3 + CloudFront and 
    npm run dev
    ```
 
-4. **Open in browser**
+4. **Configure environment variables**
+
+   Create a local `.env` file from `.env.example` and set:
+
+   ```env
+   VITE_API_BASE_URL=https://api.daniel-saenz.com
+   VITE_GA_MEASUREMENT_ID=G-E0WK4XLM0P
+   ```
+
+   Google Analytics is disabled automatically when `VITE_GA_MEASUREMENT_ID` is not set.
+
+5. **Open in browser**
    Visit `http://localhost:5173` to view live-reloading changes.
 
 ---
@@ -118,6 +129,15 @@ This project separates CI and CD workflows:
   * Uploads the `dist/` artifact
   * Syncs `dist/` to S3
   * Invalidates CloudFront so users see the latest content immediately
+
+### GitHub Actions Variables
+
+The production build reads Vite environment values during GitHub Actions:
+
+* **Repository secret**: `VITE_API_BASE_URL`
+* **Repository variable**: `VITE_GA_MEASUREMENT_ID`
+
+Use `G-E0WK4XLM0P` for `VITE_GA_MEASUREMENT_ID`. This value is safe as a repository variable because GA4 Measurement IDs are included in the public browser bundle.
 
 
 ## 📜 Fork & Attribution
