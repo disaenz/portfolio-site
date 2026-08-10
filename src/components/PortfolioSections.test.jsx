@@ -9,7 +9,6 @@ import Hero from "./Hero.jsx";
 import MediaAndHighlights from "./MediaAndHighlights.jsx";
 import NavBar from "./NavBar.jsx";
 import Projects from "./Projects.jsx";
-import ScrollProgress from "./ScrollProgress.jsx";
 import Skills from "./Skills.jsx";
 import { renderWithChakra } from "../test/renderWithChakra.jsx";
 
@@ -92,9 +91,4 @@ describe("portfolio sections", () => {
     expect(screen.getAllByRole("link", { name: /projects/i }).length).toBeGreaterThan(0);
   });
 
-  it("renders the scroll progress indicator", () => {
-    const { container } = renderWithChakra(<ScrollProgress />);
-
-    expect(container.firstChild).toBeInTheDocument();
-  });
 });

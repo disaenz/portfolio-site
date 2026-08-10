@@ -11,7 +11,6 @@ import Education from "./components/Education.jsx";
 import MediaAndHighlights from "./components/MediaAndHighlights.jsx";
 import ChatBubble from "./components/ChatBubble.jsx";
 import ChatModal from "./components/ChatModal.jsx";
-import ScrollProgress from "./components/ScrollProgress.jsx";
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,8 +31,6 @@ export default function App() {
 
   return (
     <Box bg="#1b212d" color="white" minH="100vh">
-      <ScrollProgress />
-
       <Box
         as="main"
         maxW="1200px"
